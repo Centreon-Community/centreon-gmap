@@ -1,0 +1,195 @@
+
+
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+
+
+
+
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key={$gmap_key}"
+      type="text/javascript"></script>
+   <script type="text/javascript" src="modules/gmap/javascripts/lib/prototype.js"></script>
+<script type="text/javascript" src="modules/gmap/javascripts/src/scriptaculous.js?load=effects"></script>
+{literal}
+ <script type="text/javascript">
+    //<![CDATA[
+
+    var map = null;
+    var geocoder = null;
+function ajaxFunction(lid,action){
+
+	var ajaxRequest;  // The variable that makes Ajax possible!
+        host_address = "address_" + lid
+        host_lat = "lat_" + lid
+        host_long = "long_" + lid
+	host_tr = "tr_" + lid
+	update_id = "update_" + lid
+ 	hg_id = "host_group_list_" + lid
+	
+new Element.show(lid); 
+	try{
+		// Opera 8.0+, Firefox, Safari
+		ajaxRequest = new XMLHttpRequest();
+	} catch (e){
+		// Internet Explorer Browsers
+		try{
+			ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+		} catch (e) {
+			try{
+				ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			} catch (e){
+				// Something went wrong
+				alert("Your browser broke!");
+				return false;
+			}
+		}
+	}
+	
+	// Create a function that will receive data sent from the server
+	ajaxRequest.onreadystatechange = function(){
+		if(ajaxRequest.readyState == 4){
+		// hide the spinning icon
+		new Element.hide(lid);
+		}
+	}
+	
+	lat = document.demo[host_lat].value
+	long = document.demo[host_long].value
+	address = document.demo[host_address].value
+	hg_id = document.demo[hg_id].value
+	if (action == "update") {
+		var queryString = "&l_id=" + lid +"&lat=" + lat + "&long=" + long + "&address=" + address + "&hg_id=" + hg_id + "&action=update";
+	}
+	if (action == "new") {
+                var queryString = "&l_id=" + lid +"&lat=" + lat + "&long=" + long + "&address=" + address + "&hg_id=" + hg_id + "&action=new";
+        }
+	 if (action == "delete") {
+                var queryString = "&l_id=" + lid +"&lat=" + lat + "&long=" + long + "&address=" + address + "&hg_id=" + hg_id + "&action=delete";
+        }
+
+
+	ajaxRequest.open("GET", "main.php?p=9010101" + queryString, true);
+	ajaxRequest.send(null); 
+}
+
+
+    function createMap() {
+      if (GBrowserIsCompatible()) {
+        map = new GMap2(document.getElementById("map"));
+        map.setCenter(new GLatLng(0, -0), 0);
+        geocoder = new GClientGeocoder();
+      }
+    }
+	
+    function showAddress(host) {
+      if (geocoder) {
+	  
+	host_address = "address_" + host
+	host_lat = "lat_" + host
+	host_long = "long_" + host
+
+
+	address_f = document.demo[host_address].value;
+        geocoder.getLatLng(
+          address_f,
+          function(point) {
+            if (!point) {
+              alert(address_f + " not found");
+            } else {
+              map.setCenter(point, 13);
+              var marker = new GMarker(point);
+ 		document.demo[host_lat].value = point;
+      
+		var where_is_mytool=document.demo[host_lat].value;
+		var mytool_array=where_is_mytool.split("(");
+		var split_again=mytool_array[1].split(",");
+		var split_final=split_again[1].split(")");
+
+		document.demo[host_lat].value = split_again[0];
+	
+		document.demo[host_long].value = split_final[0];
+	
+		map.addOverlay(marker);
+        marker.openInfoWindowHtml(address_f);
+            }
+          }
+        );
+      }
+    }
+
+window.onload = createMap;
+
+    //]]>
+    </script>
+ <div id="map" style="width: 680px; height: 250px"></div>
+
+{/literal}
+<FORM name="demo">
+			<TABLE id="myTable" width="500" border="0" cellpadding="3" cellspacing="0" bordercolor="#999999">
+			<tr>
+		
+		<td width=20%><b>Location: </b></td><td width=50% colspan=2><b> Address:</b></td><td width=15%> <b> Lat: </b></td><td width=15%> <b> Long:</b><br></td>
+		</td></tr>
+
+           {* Values of $h_names array
+		hname = h_id (host id)
+                item0 = l_id  (location id)
+                item1 = h_id  (host id)
+                item2 = hg_id (hostgroup id)
+                item3 = address
+                item4 = lat   (lattitude)
+                item5 = long  (longitude)
+            *}
+
+	{foreach key=hname item=item from=$h_names}
+			<tr id=tr_{$hname}">
+			<td>
+			<select name="host_group_list_{$item[0]}" size="1">
+			<option value="none" selected="selected">
+			{foreach key=host_id item=host_name from=$hostgroup_list}
+        	         <option value={$host_id} {if $item[1] == $host_id} selected="selected"{/if}>{$host_name}
+	                {/foreach}
+			
+			</td>
+			<td><input type="text" name="address_{$item[0]}" size="70" value="{$item[3]}"></td> 
+			<td><img id="arrow_{$hname}" onclick="showAddress('{$item[0]}')" src=./img/icones/16x16/arrow_right_blue.gif></td>
+			<td><input type="text" name="lat_{$item[0]}" size="15" value="{$item[4]}"></td>
+			<td><input type="text" name="long_{$item[0]}" size="15" value="{$item[5]}"></td>
+			<td><img  onclick="ajaxFunction('{$item[0]}','update')" src=./img/icones/16x16/data_into.gif></td>
+			<td><img  onclick="ajaxFunction('{$item[0]}','delete')" src=./img/icones/16x16/delete2.gif></td>
+			<td><img id="{$item[0]}" style="display:none;" src="./img/icones/16x16/spinner_blue.gif" alt="Updating"></td>
+			</tr>
+	{/foreach}	
+
+{literal}
+<script type="text/javascript">
+var i
+i=0
+function insRow()
+{
+var numRows=document.getElementById("myTable").getElementsByTagName("TR").length;
+var x=document.getElementById('myTable').insertRow(numRows);
+var a=x.insertCell(0);
+var b=x.insertCell(1);
+var c=x.insertCell(2);
+var d=x.insertCell(3);
+var e=x.insertCell(4);
+var f=x.insertCell(5);
+var g=x.insertCell(6);
+a.innerHTML="{/literal}<select name=host_group_list_new" + i + " size=1><option value=none selected=selected>{foreach key=host_id item=host_name from=$hostgroup_list}<option value={$host_id}>{$host_name}{/foreach}{literal}";
+b.innerHTML="<input type=text name=address_new" + i + " size=70 value=>";
+c.innerHTML="<img id=arrow_new" + i + " onclick=showAddress('new" + i + "') src=./img/icones/16x16/arrow_right_blue.gif>";
+d.innerHTML="<input type=text name=lat_new" + i + " size=15 value=>";
+e.innerHTML="<input type=text name=long_new" + i + " size=15 value=>";
+f.innerHTML="<img onclick=ajaxFunction('new" + i + "','new') src=./img/icones/16x16/data_into.gif>";
+g.innerHTML="<img id=new" + i + "  style=display:none; src=./img/icones/16x16/spinner_blue.gif alt=Updating>";
+i++;
+}
+</script>
+{/literal}
+</form>
+</table>
+<a href="javascript:insRow('myTable')">Add Location</a><img src="./img/icones/16x16/navigate_plus.gif" alt="Add Location">
