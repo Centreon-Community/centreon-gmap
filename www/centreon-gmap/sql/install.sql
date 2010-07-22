@@ -28,14 +28,13 @@ INSERT INTO `topology_JS` (`id_t_js`, `id_page`, `o`, `PathName_js`, `Init`) VAL
 ('', 901, NULL, './include/common/javascript/changetab.js', 'initChangeTab');
 
 
-INSERT INTO `topology` (`topology_id`, `topology_name`, `topology_icone`, `topology_parent`, `topology_page`, `topology_order`, `topology_group`, `topology_url`, `topology_url_opt`, `topology_popup`, `topology_modules`, `topology_show`) VALUES ('', 'GMAP', NULL, NULL, 9, 100, 1, './modules/gmap/gmap.php', NULL, '0', '1', '1');
-INSERT INTO `topology` (`topology_id`, `topology_name`, `topology_icone`, `topology_parent`, `topology_page`, `topology_order`, `topology_group`, `topology_url`, `topology_url_opt`, `topology_popup`, `topology_modules`, `topology_show`) VALUES ('', 'GMAP', NULL, 9, 901, 100, 1, './modules/gmap/gmap.php', NULL, '0', '1', '1');
-INSERT INTO `topology` (`topology_id`, `topology_name`, `topology_icone`, `topology_parent`, `topology_page`, `topology_order`, `topology_group`, `topology_url`, `topology_url_opt`, `topology_popup`, `topology_modules`, `topology_show`) VALUES ('', 'GMAP', NULL, 901, 90101, 100, 1, './modules/gmap/gmap.php', NULL, '0', '1', '1');
-INSERT INTO `topology` (`topology_id`, `topology_name`, `topology_icone`, `topology_parent`, `topology_page`, `topology_order`, `topology_group`, `topology_url`, `topology_url_opt`, `topology_popup`, `topology_modules`, `topology_show`, `topology_style_class`, `topology_style_id`, `topology_OnClick`) VALUES
-('', 'GMAP Options', './modules/gmap/img/ico_google.jpg', 50101, 5010190, 130, 1, './modules/gmap/gmap_Opt.php', '&o=w', '0', '0', '1', NULL, NULL, NULL);
-INSERT INTO `topology` (`topology_id`, `topology_name`, `topology_icone`, `topology_parent`, `topology_page`, `topology_order`, `topology_group`, `topology_url`, `topology_url_opt`, `topology_popup`, `topology_modules`, `topology_show`, `topology_style_class`, `topology_style_id`, `topology_OnClick`) VALUES
-('', 'Host Config', NULL, 9, 9010101, 100, 1, './modules/gmap/gmap_config_host.php', NULL, '0', '1', '1', NULL, NULL, NULL),
-('', 'Host Group Config', NULL, 9, 9010102, 101, 1, './modules/gmap/gmap_config_hostGroup.php', NULL, '0', '1', '1', NULL, NULL, NULL);
+INSERT INTO `topology` (`topology_id`, `topology_name`, `topology_icone`, `topology_parent`, `topology_page`, `topology_order`, `topology_group`, `topology_url`, `topology_url_opt`, `topology_popup`, `topology_modules`, `topology_show`) VALUES ('', 'Google Map', NULL, 2, 245, 100, 1, './modules/centreon-gmap/gmap.php', NULL, '0', '1', '1');
+INSERT INTO `topology` (`topology_id`, `topology_name`, `topology_icone`, `topology_parent`, `topology_page`, `topology_order`, `topology_group`, `topology_url`, `topology_url_opt`, `topology_popup`, `topology_modules`, `topology_show`) VALUES ('', 'View', NULL, 245, 24501, 100, 1, './modules/centreon-gmap/gmap.php', NULL, '0', '1', '1');
 
+INSERT INTO `topology` (`topology_id`, `topology_name`, `topology_icone`, `topology_parent`, `topology_page`, `topology_order`, `topology_group`, `topology_url`, `topology_url_opt`, `topology_popup`, `topology_modules`, `topology_show`, `topology_style_class`, `topology_style_id`, `topology_OnClick`) VALUES ('', 'Host Config', NULL, 245, 24502, 101, 1, './modules/centreon-gmap/gmap_config_host.php', NULL, '0', '1', '1', NULL, NULL, NULL);
+INSERT INTO `topology` (`topology_id`, `topology_name`, `topology_icone`, `topology_parent`, `topology_page`, `topology_order`, `topology_group`, `topology_url`, `topology_url_opt`, `topology_popup`, `topology_modules`, `topology_show`, `topology_style_class`, `topology_style_id`, `topology_OnClick`) VALUES ('', 'Host Group Config', NULL, 245, 24503, 102, 1, './modules/centreon-gmap/gmap_config_hostGroup.php', NULL, '0', '1', '1', NULL, NULL, NULL);
+
+
+INSERT INTO `topology` (`topology_id`, `topology_name`, `topology_icone`, `topology_parent`, `topology_page`, `topology_order`, `topology_group`, `topology_url`, `topology_url_opt`, `topology_popup`, `topology_modules`, `topology_show`, `topology_style_class`, `topology_style_id`, `topology_OnClick`) VALUES ('', 'GMAP Options', './modules/gmap/img/ico_google.jpg', 50101, 5010190, 130, 1, './modules/centreon-gmap/gmap_Opt.php', '&o=w', '0', '0', '1', NULL, NULL, NULL);
 
 
