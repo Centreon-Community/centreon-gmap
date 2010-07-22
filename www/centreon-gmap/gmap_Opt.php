@@ -18,7 +18,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	
 	#Path to the configuration dir
 	global $path;
-	$path = "./modules/gmap/";
+	$path = "./modules/centreon-gmap/";
 
 	#PHP functions
 	require_once $path."DB-Func.php";	

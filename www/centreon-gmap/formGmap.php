@@ -23,7 +23,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	
 	#Path to the configuration dir
 	global $path;
-	$path = "./modules/gmap/";
+	$path = "./modules/centreon-gmap/";
 
 	#PHP functions
 	require_once $path."DB-Func.php";		
@@ -41,11 +41,11 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	$form = new HTML_QuickForm('Form', 'post', "?p=".$p);
 	$form->addElement('header', 'title', 'Gmap Module Options');
 	$form->addElement('header', 'gmap_header', 'Gmap Module Options');
-	$form->addElement('text', 'api_key', $lang["m_gmap_key"], $attrsText );
-	$form->addElement('text', 'lat', $lang["m_gmap_lat"], $attrsText3 );
-	$form->addElement('text', 'long', $lang["m_gmap_long"], $attrsText3 );
-	$form->addElement('text', 'height', $lang["m_gmap_height"], $attrsText3 );
-	$form->addElement('text', 'width', $lang["m_gmap_width"], $attrsText3 );
+	$form->addElement('text', 'api_key', _("Google API Key"), $attrsText );
+	$form->addElement('text', 'lat', _("Lattitude"), $attrsText3 );
+	$form->addElement('text', 'long', _("Longitude"), $attrsText3 );
+	$form->addElement('text', 'height', _("Height"), $attrsText3 );
+	$form->addElement('text', 'width', _("Width"), $attrsText3 );
 	
 	$form->addElement('hidden', 'id');
 	$redirect =& $form->addElement('hidden', 'o');

@@ -1,21 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <title>Google Maps</title>
-
-<script src="http://maps.google.com/maps?file=api&amp;v=2.93&amp;key={$gmap_key}"
-      type="text/javascript"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2.93&amp;key={$gmap_key}" type="text/javascript"></script>
 {literal}
-
-
- </head>
-
+</head>
   <body onunload="GUnload()">
-
-
     <!-- you can use tables or divs for the overall layout -->
-
            <div id="map" style="float:left; width: 87%; height:600px;"></div>
  <div id="side_bar" style="float:right; width:12%; height:600px; overflow:auto; margin:1px;"></div>
     
@@ -42,20 +29,20 @@
       map.enableScrollWheelZoom();
    
         var iconUP = new GIcon();
-        iconUP.image = "modules/gmap/img/green-dot.png";
+        iconUP.image = "modules/centreon-gmap/img/green-dot.png";
         iconUP.iconSize = new GSize(15, 15);
         iconUP.iconAnchor = new GPoint(8, 7)
         iconUP.infoWindowAnchor = new GPoint(5, 1);
 
         var iconWARN = new GIcon();
-        iconWARN.image = "modules/gmap/img/yellow-dot.png";
+        iconWARN.image = "modules/centreon-gmap/img/yellow-dot.png";
         iconWARN.iconSize = new GSize(15, 15);
         iconWARN.iconAnchor = new GPoint(8, 7)
         iconWARN.infoWindowAnchor = new GPoint(5, 1);
 
         // Here we set the red/down icon
         var iconDOWN = new GIcon();
-        iconDOWN.image = "modules/gmap/img/red-dot.png";
+        iconDOWN.image = "modules/centreon-gmap/img/red-dot.png";
         iconDOWN.iconSize = new GSize(15, 15);
         iconDOWN.iconAnchor = new GPoint(8, 7);
         iconDOWN.infoWindowAnchor = new GPoint(5, 1);
@@ -99,7 +86,7 @@
       }
       
       var request = GXmlHttp.create();
-      request.open("GET", "modules/gmap/xml.php", true);
+      request.open("GET", "modules/centreon-gmap/xml.php", true);
       request.onreadystatechange = function() {
         if (request.readyState == 4) {
           var xmlDoc = GXml.parse(request.responseText);
@@ -135,7 +122,5 @@
     //]]>
     </script>
   </body>
-
 </html>
 {/literal}
-
