@@ -59,7 +59,7 @@ new Element.show(lid);
         }
 
 
-	ajaxRequest.open("GET", "main.php?p=9010101" + queryString, true);
+	ajaxRequest.open("GET", "main.php?p=24502" + queryString, true);
 	ajaxRequest.send(null); 
 }
 
