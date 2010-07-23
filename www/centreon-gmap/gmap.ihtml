@@ -62,7 +62,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 			if (location_status == "DOWN") {
        			var marker = new GMarker(point,iconDOWN);
 			}
-			if (location_status == "WARN") {
+			if (location_status == "UNREACHABLE") {
 				var marker = new GMarker(point,iconWARN);
 			}
   			if (location_status == "UP") {
@@ -110,7 +110,6 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 			}
 
 		}
-		
 		
 		request.send(null);
 	}

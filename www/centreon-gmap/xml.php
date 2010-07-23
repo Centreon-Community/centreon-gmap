@@ -9,6 +9,8 @@ Designed for: Centreon v2
 For information : justin@ensgrp.com or www.ensgrp.com
 **************************************************/
 	
+	ini_set("display_errors", "On");
+	
 	include_once "/etc/centreon/centreon.conf.php";
 	include_once $centreon_path . "www/class/other.class.php";
 	include_once $centreon_path . "www/class/centreonGMT.class.php";
@@ -26,15 +28,19 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	$centreonlang->bindLang();
 	
 	/*
+	 * Tab status
+	 */
+	$hostState = array("UP", "DOWN", "UNREACHABLE");
+	$serviceState = array("OK", "WARNING", "CRITICAL", "UNKNOWN");
+	
+	/*
 	* Call DB connector
 	*/
 	$pearDB         = new CentreonDB();
 	$pearDBndo      = new CentreonDB("ndo");
 	
-	
 	$ndo_prefix = getNDOPrefix();
-        
-
+    
 	/*
 	 * We grab a list of Services and check the status for each host
 	 * Returns either UP, DOWN or WARN
@@ -110,6 +116,30 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		return $host_status;
 	}
 	
+	function getHostState($host_name, $pearDBndo, $ndo_prefix) {
+		$rq1 = 	" SELECT DISTINCT no.name1, nhs.current_state," .
+			" nhs.problem_has_been_acknowledged, " .
+			" nhs.last_check as last_check2, " .
+			" nhs.output," .
+			" unix_timestamp(nhs.last_check) as last_check," .
+			" nh.address," .
+			" no.name1 as host_name," .
+			" nh.action_url," .
+			" nh.notes_url," .
+			" nh.notes," .
+			" nh.icon_image," .
+			" nh.icon_image_alt," .
+			" nhs.max_check_attempts," .
+			" nhs.state_type," .
+			" nhs.current_check_attempt, " .
+			" nhs.scheduled_downtime_depth" .
+			" FROM ".$ndo_prefix."hoststatus nhs, ".$ndo_prefix."objects no, ".$ndo_prefix."hosts nh " .
+			" WHERE no.object_id = nhs.host_object_id AND nh.host_object_id = no.object_id AND name1 LIKE '$host_name' LIMIT 1";
+		$DBRESULT =& $pearDBndo->query($rq1);
+		$data =& $DBRESULT->fetchRow();
+		return $data;
+	}
+	
 	$dom = new DOMDocument("1.0");
 	$node = $dom->createElement("markers");
 	$parnode = $dom->appendChild($node);
@@ -131,22 +161,44 @@ For information : justin@ensgrp.com or www.ensgrp.com
         print "DB Error : ".$DBRESULT->getDebugInfo()."<br>";
 	}
     while ($marker =& $DBRESULT->fetchRow()) {
+		$popupString = "";
+		$information = getHostState($marker['name'], $pearDBndo, $ndo_prefix);
+		
 		$node = $dom->createElement("location");
 		$newnode = $parnode->appendChild($node);
         $newnode->setAttribute("name",$marker['name']);
 		$newnode->setAttribute("lat", $marker['lat']);
 		$newnode->setAttribute("lng", $marker['lng']);
+		$newnode->setAttribute("location_status", $hostState[$information["current_state"]]);
+		$popupString .= "<img src='./img/media/".$information["icon_image"]."'><br><br>";
+		$popupString .= "<b>"._("Host name:")."</b>"." ".$marker['name']."<br>";
+		$popupString .= "<b>"._("Host address:")."</b>"." ".$information['address']."<br>";
+		$popupString .= "<b>"._("Status:")."</b>"." ".$hostState[$information["current_state"]]."<br>";
+		if ($information["current_state"]) {
+			$popupString .= "<b>"._("Acknownledge:")."</b>"." ".($information["problem_has_been_acknowledged"] > 0 ? _("Yes") : _("No"))."<br>";
+		}
+		$popupString .= "<b>"._("Ouptut:")."</b>"." ".$information["output"]."<br>";
+		$popupString .= "<b>"._("Last check:")."</b>"." ".$information["last_check2"]."<br>";
+		$popupString .= "<br><br><center><a href='?p=20201&o=svc&search=srvi-opel_1&search_host=1&search_service=0'>Show Services Details</a></center>";
+		$newnode2 = $node->appendChild($dom->createTextNode($popupString));
+		
+	}
+	$DBRESULT->free();
+
+/*
 		if ($marker['hg_id'] != '0') {
 			$host_status = CreateHosts($marker['hg_id'],$pearDB);
 		} else { 
-			$state = ServiceStatusPerHost($marker['name']);
+			
+			
+			//$state = ServiceStatusPerHost($marker['name']);
 
-			if ($state == "UP") {
+			if ($information["current_state"] == "UP") {
 				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)."><img src=\"modules/gmap/img/green-dot.png\"></a>";
 				$location_status = "UP";
-			} else if($state == "WARN") {
+			} else if ($information["current_state"] == "WARN") {
 				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)."><img src=\"modules/gmap/img/yellow-dot.png\"></a>";
-				$location_status = "WARN";	
+				$location_status = "UNREACHABLE";	
 			} else {
 				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)." ><img src=\"modules/gmap/img/red-dot.png\"></a>";
 				$location_status = "DOWN";
@@ -158,12 +210,11 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		if ($location_critical === TRUE) {
 			$newnode->setAttribute("location_status", "DOWN");
 		} else if($location_warn === TRUE) {
-			$newnode->setAttribute("location_status", "WARN");
+			$newnode->setAttribute("location_status", "UNREACHABLE");
 		} else {
 			$newnode->setAttribute("location_status", "UP");
 		}
-		$newnode2 = $node->appendChild($dom->createTextNode("".$marker['name']." <br> $host_status "));
-	}
+		*/
 
 
 	header("Content-type: text/xml");

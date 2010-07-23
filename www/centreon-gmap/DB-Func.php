@@ -151,7 +151,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	function getHostGroupList() {
 		global $smarty_hostgroup_list, $pearDB, $oreon;
 
-		$DBRESULT =& $pearDB->query("SELECT * FROM hostgroup WHERE hg_activate='1'");
+		$DBRESULT =& $pearDB->query("SELECT * FROM hostgroup WHERE hg_activate='1' ORDER BY hg_name");
         if (PEAR::isError($DBRESULT)) {
                 print "DB Error : ".$DBRESULT->getDebugInfo()."<br>";
         }
@@ -164,7 +164,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	function getHostList() {
         global $smarty_hostgroup_list, $pearDB, $oreon;
 
-        $DBRESULT =& $pearDB->query("SELECT * FROM host WHERE host_activate='1' AND host_register='1'");
+        $DBRESULT =& $pearDB->query("SELECT * FROM host WHERE host_activate='1' AND host_register='1' ORDER BY host_name");
         if (PEAR::isError($DBRESULT)) {
         	print "DB Error : ".$DBRESULT->getDebugInfo()."<br>";
         }
