@@ -57,15 +57,12 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		if (PEAR::isError($DBRESULT_NDO)) {
 	    	print "DB Error : ".$DBRESULT_NDO->getDebugInfo()."<br>";
 		}
-	    
-	    $state = "UP";
-	    while ($get_service_states =& $DBRESULT_NDO->fetchRow()) {
-			if($get_service_states['state'] == 2) {
-				$state = "DOWN";	
+	    $state = array();
+	    while ($data =& $DBRESULT_NDO->fetchRow()) {
+			if (!isset($state[$data["state"]])) {
+				$state[$data["state"]] = 0;
 			}
-			if($state != "DOWN" && $get_service_states['state'] == 1) {
-				$state = "WARN";
-			}	
+			$state[$data["state"]]++;
 		}
 		return $state;
 	}
@@ -95,7 +92,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 			 * lookup host status
 			 */
 			$state = ServiceStatusPerHost($host_name);		
-				
+			
 			if ($state == "UP") {
 				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)."><img src=\"modules/gmap/img/green-dot.png\"></a>";
 				$location_status = "UP";
@@ -163,6 +160,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
     while ($marker =& $DBRESULT->fetchRow()) {
 		$popupString = "";
 		$information = getHostState($marker['name'], $pearDBndo, $ndo_prefix);
+		$stateService = ServiceStatusPerHost($marker['name']);
 		
 		$node = $dom->createElement("location");
 		$newnode = $parnode->appendChild($node);
@@ -177,8 +175,13 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		if ($information["current_state"]) {
 			$popupString .= "<b>"._("Acknownledge:")."</b>"." ".($information["problem_has_been_acknowledged"] > 0 ? _("Yes") : _("No"))."<br>";
 		}
-		$popupString .= "<b>"._("Ouptut:")."</b>"." ".$information["output"]."<br>";
+		$popupString .= "<b>"._("Output:")."</b>"." ".$information["output"]."<br>";
 		$popupString .= "<b>"._("Last check:")."</b>"." ".$information["last_check2"]."<br>";
+		
+		foreach ($stateService as $state => $nb) {
+			$popupString .= "<b>"."Services ".$serviceState[$state].":"."</b>"." ".$nb."<br>";
+		}
+		
 		$popupString .= "<br><br><center><a href='?p=20201&o=svc&search=srvi-opel_1&search_host=1&search_service=0'>Show Services Details</a></center>";
 		$newnode2 = $node->appendChild($dom->createTextNode($popupString));
 		
