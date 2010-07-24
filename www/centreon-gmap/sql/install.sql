@@ -5,7 +5,7 @@ CREATE TABLE `gmap_op` (
   `long` float NOT NULL default '0',
   `height` smallint(6) NOT NULL default '0',
   `width` smallint(6) NOT NULL default '0',
-  `zoom` smallint(3) NOT NULL default '0',
+  `zoomLevel` smallint(3) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
@@ -19,7 +19,7 @@ CREATE TABLE locations (
   PRIMARY KEY  (l_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-INSERT INTO `gmap_op` (`id`, `api_key`, `lat`, `long`, `height`, `width`, `zoom`) VALUES 
+INSERT INTO `gmap_op` (`id`, `api_key`, `lat`, `long`, `height`, `width`, `zoomLevel`) VALUES 
 (1, '', 14.6048, 7.03125, 1000, 500, 6);
 INSERT INTO `css_color_menu` (`id_css_color_menu`, `menu_nb`, `css_name`) VALUES
 (9, 9, 'green_css.php');

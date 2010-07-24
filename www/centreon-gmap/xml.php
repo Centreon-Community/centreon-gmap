@@ -182,7 +182,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 			$popupString .= "<b>"."Services ".$serviceState[$state].":"."</b>"." ".$nb."<br>";
 		}
 		
-		$popupString .= "<br><br><center><a href='?p=20201&o=svc&search=".$marker['name']."&search_host=1&search_service=0'>Show Services Details</a></center>";
+		$popupString .= "<br><br><center><a href='?p=20201&o=svc&search=".$marker['name']."&search_host=1&search_service=0'>"._("Show Services Details")."</a></center>";
 		$newnode2 = $node->appendChild($dom->createTextNode($popupString));
 		
 	}

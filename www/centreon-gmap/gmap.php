@@ -47,7 +47,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
         $tpl->assign("gmap_long", $gmap_op['long']);
         $tpl->assign("gmap_height", $gmap_op['height']);
         $tpl->assign("gmap_width", $gmap_op['width']);
-        $tpl->assign("gmap_zoom", $gmap_op['zoom']);
+        $tpl->assign("gmap_zoom", $gmap_op['zoomLevel']);
 	    $tpl->display("gmap.ihtml");
 	} else {
 	   echo _("You need to obtain a valid google map key which can be obtained <a href=http://www.google.com/apis/maps/>Here</a><br>"

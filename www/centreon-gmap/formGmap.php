@@ -59,17 +59,14 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	## Form begin
 	#
 	$form = new HTML_QuickForm('Form', 'post', "?p=".$p);
-	$form->addElement('header', 'title', 'Gmap Module Options');
-	$form->addElement('header', 'gmap_header', 'Gmap Module Options');
+	$form->addElement('header', 'title', _("Gmap Module Options"));
+	$form->addElement('header', 'gmap_header', _("Gmap Module Options"));
 	$form->addElement('text', 'api_key', _("Google API Key"), $attrsText );
 	$form->addElement('text', 'lat', _("Lattitude"), $attrsText3 );
 	$form->addElement('text', 'long', _("Longitude"), $attrsText3 );
 	$form->addElement('text', 'height', _("Height"), $attrsText3 );
 	$form->addElement('text', 'width', _("Width"), $attrsText3 );
 	$form->addElement('select', 'zoomLevel', _("Zoom Level"), $zoomLevel);
-	
-	$defaultValues['zoomLevel'] = array('6');
-	$form->setDefaults($defaultValues);
 	
 	$form->addElement('hidden', 'id');
 	$redirect =& $form->addElement('hidden', 'o');
@@ -92,8 +89,9 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	# Smarty template Init
 	$tpl = new Smarty();
 	$tpl = initSmartyTpl($path, $tpl);
-
+	
 	$form->setDefaults($sopt);
+	
 
 	$subC =& $form->addElement('submit', 'submitC', 'save');
 	$DBRESULT =& $form->addElement('reset', 'reset', 'reset');
