@@ -31,7 +31,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 
 	$sopt = readConfigOptions($pearDB,$oreon);
 
-	$attrsText 		= array("size"=>"50");
+	$attrsText 		= array("size"=>"126");
 	$attrsText2		= array("size"=>"20");
 	$attrsText3		= array("size"=>"10");
 	$attrsAdvSelect = null;
