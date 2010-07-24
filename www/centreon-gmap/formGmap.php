@@ -93,8 +93,8 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	$form->setDefaults($sopt);
 	
 
-	$subC =& $form->addElement('submit', 'submitC', 'save');
-	$DBRESULT =& $form->addElement('reset', 'reset', 'reset');
+	$subC =& $form->addElement('submit', 'submitC', _("Save"));
+	$DBRESULT =& $form->addElement('reset', 'reset', _("Reset"));
 
 
     $valid = false;
@@ -110,7 +110,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	    print("<div class='msg' align='center'>".$lang["quickFormError"]."</div>");
 	}
 
-	$form->addElement("button", "change", $lang['modify'], array("onClick"=>"javascript:window.location.href='?p=".$p."&o=gmap_opt'"));
+	$form->addElement('button', 'change', _("Modify"), array("onClick"=>"javascript:window.location.href='?p=".$p."&o=gmap_opt'"));
 
 	#
 	##Apply a template definition
