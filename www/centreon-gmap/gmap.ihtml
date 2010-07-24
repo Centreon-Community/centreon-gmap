@@ -26,6 +26,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 		
 		{/literal}
 		map.setCenter(new GLatLng({$gmap_lat}, {$gmap_long}), 5);
+		map.setZoom({$gmap_zoom});
      	{literal}
      	
       	map.enableScrollWheelZoom();

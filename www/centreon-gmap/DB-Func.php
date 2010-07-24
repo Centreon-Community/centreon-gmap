@@ -99,7 +99,9 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		$rq .= "`height` = ";
 		isset($ret["height"]) && $ret["height"] != NULL ? $rq .= "'".htmlentities($ret["height"], ENT_QUOTES)."', ": $rq .= "NULL, ";
 		$rq .= "`width` = ";
-		isset($ret["width"]) && $ret["width"] != NULL ? $rq .= "'".htmlentities($ret["width"], ENT_QUOTES)."' ": $rq .= "NULL ";
+		isset($ret["width"]) && $ret["width"] != NULL ? $rq .= "'".htmlentities($ret["width"], ENT_QUOTES)."', ": $rq .= "NULL ";
+		$rq .= "`zoom` = ";
+		isset($ret["zoomLevel"]) && $ret["zoomLevel"] != NULL ? $rq .= "'".htmlentities($ret["zoomLevel"], ENT_QUOTES)."' ": $rq .= "NULL ";
 		$rq .= "WHERE `id` = '".$id."'";
 		$DBRESULT =& $pearDB->query($rq);
 		if (PEAR::isError($DBRESULT)) {

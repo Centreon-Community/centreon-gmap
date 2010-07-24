@@ -47,10 +47,11 @@ For information : justin@ensgrp.com or www.ensgrp.com
         $tpl->assign("gmap_long", $gmap_op['long']);
         $tpl->assign("gmap_height", $gmap_op['height']);
         $tpl->assign("gmap_width", $gmap_op['width']);
+        $tpl->assign("gmap_zoom", $gmap_op['zoom']);
 	    $tpl->display("gmap.ihtml");
 	} else {
-	   echo "You need to obtain a valid google map key which can be obtained <a href=http://www.google.com/apis/maps/>Here</a><br>"
-		."After obtaining a valid google api key, add it to the module configuration under <a href=main.php?p=5010190&o=w>options->General Options->Gmap</a> ";
+	   echo _("You need to obtain a valid google map key which can be obtained <a href=http://www.google.com/apis/maps/>Here</a><br>"
+		."After obtaining a valid google api key, add it to the module configuration under <a href=main.php?p=5010190&o=w>Administration->Options->Gmap Options</a>");
 	}
 
 ?>

@@ -8,6 +8,7 @@
 	<tr class="list_one"><td class="FormRowField">{$form.long.label}</td><td class="FormRowValue">{$form.long.html}</td></tr>	
 	<tr class="list_two"><td class="FormRowField">{$form.height.label}</td><td class="FormRowValue">{$form.height.html}</td></tr>
 	<tr class="list_one"><td class="FormRowField">{$form.width.label}</td><td class="FormRowValue">{$form.width.html}</td></tr>		
+	<tr class="list_two"><td class="FormRowField">{$form.zoomLevel.label}</td><td class="FormRowValue">{$form.zoomLevel.html}</td></tr>		
 </table>
 	<div id="validForm">
 		<p>{$form.submitC.html}&nbsp;&nbsp;&nbsp;{$form.reset.html}</p>

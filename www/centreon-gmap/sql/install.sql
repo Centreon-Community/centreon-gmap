@@ -5,6 +5,7 @@ CREATE TABLE `gmap_op` (
   `long` float NOT NULL default '0',
   `height` smallint(6) NOT NULL default '0',
   `width` smallint(6) NOT NULL default '0',
+  `zoom` smallint(3) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
@@ -18,8 +19,8 @@ CREATE TABLE locations (
   PRIMARY KEY  (l_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-INSERT INTO `gmap_op` (`id`, `api_key`, `lat`, `long`, `height`, `width`) VALUES 
-(1, '', 14.6048, 7.03125, 1000, 500);
+INSERT INTO `gmap_op` (`id`, `api_key`, `lat`, `long`, `height`, `width`, `zoom`) VALUES 
+(1, '', 14.6048, 7.03125, 1000, 500, 6);
 INSERT INTO `css_color_menu` (`id_css_color_menu`, `menu_nb`, `css_name`) VALUES
 (9, 9, 'green_css.php');
 
@@ -35,6 +36,6 @@ INSERT INTO `topology` (`topology_id`, `topology_name`, `topology_icone`, `topol
 INSERT INTO `topology` (`topology_id`, `topology_name`, `topology_icone`, `topology_parent`, `topology_page`, `topology_order`, `topology_group`, `topology_url`, `topology_url_opt`, `topology_popup`, `topology_modules`, `topology_show`, `topology_style_class`, `topology_style_id`, `topology_OnClick`) VALUES ('', 'Host Group Config', NULL, 245, 24503, 102, 1, './modules/centreon-gmap/gmap_config_hostGroup.php', NULL, '0', '1', '1', NULL, NULL, NULL);
 
 
-INSERT INTO `topology` (`topology_id`, `topology_name`, `topology_icone`, `topology_parent`, `topology_page`, `topology_order`, `topology_group`, `topology_url`, `topology_url_opt`, `topology_popup`, `topology_modules`, `topology_show`, `topology_style_class`, `topology_style_id`, `topology_OnClick`) VALUES ('', 'GMAP Options', './modules/gmap/img/ico_google.jpg', 50101, 5010190, 130, 1, './modules/centreon-gmap/gmap_Opt.php', '&o=w', '0', '0', '1', NULL, NULL, NULL);
+INSERT INTO `topology` (`topology_id`, `topology_name`, `topology_icone`, `topology_parent`, `topology_page`, `topology_order`, `topology_group`, `topology_url`, `topology_url_opt`, `topology_popup`, `topology_modules`, `topology_show`, `topology_style_class`, `topology_style_id`, `topology_OnClick`) VALUES ('', 'Gmap Options', './modules/gmap/img/ico_google.jpg', 50101, 5010190, 130, 1, './modules/centreon-gmap/gmap_Opt.php', '&o=w', '0', '0', '1', NULL, NULL, NULL);
 
 

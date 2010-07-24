@@ -35,6 +35,26 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	$attrsText2		= array("size"=>"20");
 	$attrsText3		= array("size"=>"10");
 	$attrsAdvSelect = null;
+	$zoomLevel		= array('0' => '0', 
+							'1' => '1',
+							'2' => '2',
+							'3' => '3',
+							'4' => '4',
+							'5' => '5',
+							'6' => '6',
+							'7' => '7',
+							'8' => '8',
+							'9' => '9',
+							'10' => '10',
+							'11' => '11',
+							'12' => '12',
+							'13' => '13',
+							'14' => '14',
+							'15' => '15',
+							'16' => '16',
+							'17' => '17',
+							'18' => '18',
+							'19' => '19');
 	#
 	## Form begin
 	#
@@ -46,6 +66,10 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	$form->addElement('text', 'long', _("Longitude"), $attrsText3 );
 	$form->addElement('text', 'height', _("Height"), $attrsText3 );
 	$form->addElement('text', 'width', _("Width"), $attrsText3 );
+	$form->addElement('select', 'zoomLevel', _("Zoom Level"), $zoomLevel);
+	
+	$defaultValues['zoomLevel'] = array('6');
+	$form->setDefaults($defaultValues);
 	
 	$form->addElement('hidden', 'id');
 	$redirect =& $form->addElement('hidden', 'o');
