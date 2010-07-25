@@ -1,13 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 <title>Google Maps</title>
-<script src="http://maps.google.com/maps?file=api&v=2&key={$gmap_key}" type="text/javascript"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 {literal}
 </head>
-<body onunload="GUnload()"><!-- you can use tables or divs for the overall layout -->
-<div id="map" style="float:left; width: 87%; height:600px;"></div>
+<body onload="initialize()" onunload="GUnload()"><!-- you can use tables or divs for the overall layout -->
+<div id="map" style="float:left; width:87%; height:600px;"></div>
 <div id="side_bar" style="float:right; width:12%; height:600px; overflow:auto; margin:1px;"></div>
 
 <noscript><b>JavaScript must be enabled in order for you to use Google Maps.</b> 
@@ -17,19 +18,30 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 <script type="text/javascript">
 //<![CDATA[
 	if (GBrowserIsCompatible()) {
+	
+		//function to initialize the map with API V3
+		function initialize() {
+			var optionsMap = {
+				zoom: 12,
+				center: new google.maps.LatLng({$gmap_lat}, {$gmap_long}),
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			var map = new google.maps.Map(document.getElementById("map"), optionsMap);
+		}
+		
 		// Display the map, with some controls and set the initial location 
       	
-      	var map = new GMap2(document.getElementById("map"));
-      	map.addControl(new GLargeMapControl());
-      	map.addControl(new GMapTypeControl());
+      	//var map = new google.maps.Map(document.getElementById("map"));
+      	//map.addControl(new GLargeMapControl());
+      	//map.addControl(new GMapTypeControl());
 		//map.addControl(new google.maps.LocalSearch(), new GControlPosition(G_ANCHOR_BOTTOM_RIGHT, new GSize(10,20)));
 		
 		{/literal}
-		map.setCenter(new GLatLng({$gmap_lat}, {$gmap_long}), 5);
-		map.setZoom({$gmap_zoom});
+		//map.setCenter(new GLatLng({$gmap_lat}, {$gmap_long}), 5);
+		//map.setZoom({$gmap_zoom});
      	{literal}
      	
-      	map.enableScrollWheelZoom();
+      	//map.enableScrollWheelZoom();
    
 		var iconUP = new GIcon();
 		iconUP.image = "modules/centreon-gmap/img/green-dot.png";
