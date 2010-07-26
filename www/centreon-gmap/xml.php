@@ -168,14 +168,22 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		$newnode->setAttribute("lat", $marker['lat']);
 		$newnode->setAttribute("lng", $marker['lng']);
 		$newnode->setAttribute("location_status", $hostState[$information["current_state"]]);
-		$popupString .= "<img src='./img/media/".$information["icon_image"]."'><br><br>";
+		if ($information["icon_image"] != "") {
+			$popupString .= "<img src='./img/media/".$information["icon_image"]."'><br><br>";
+		}
 		$popupString .= "<b>"._("Host name:")."</b>"." ".$marker['name']."<br>";
-		$popupString .= "<b>"._("Host address:")."</b>"." ".$information['address']."<br>";
-		$popupString .= "<b>"._("Status:")."</b>"." ".$hostState[$information["current_state"]]."<br>";
+		$popupString .= "<b>"._("Host address:")."</b>"." ".$information['address']."<br>";		
+		if ($hostState[$information["current_state"]] == "DOWN") {
+			$popupString .= "<b>"._("Status:")."</b> <font color='red'>"." ".$hostState[$information["current_state"]]."</font><br>";
+		} else if ($hostState[$information["current_state"]] == "UP") {
+			$popupString .= "<b>"._("Status:")."</b> <font color='green'>"." ".$hostState[$information["current_state"]]."</font><br>";
+		} else if ($hostState[$information["current_state"]] == "UNREACHABLE") {
+			$popupString .= "<b>"._("Status:")."</b> <font color='yellow'>"." ".$hostState[$information["current_state"]]."</font><br>";
+		}
+				
 		if ($information["current_state"]) {
 			$popupString .= "<b>"._("Acknownledge:")."</b>"." ".($information["problem_has_been_acknowledged"] > 0 ? _("Yes") : _("No"))."<br>";
 		}
-		$popupString .= "<b>"._("Output:")."</b>"." ".$information["output"]."<br>";
 		$popupString .= "<b>"._("Last check:")."</b>"." ".$information["last_check2"]."<br>";
 		
 		foreach ($stateService as $state => $nb) {
