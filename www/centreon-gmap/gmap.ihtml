@@ -22,9 +22,11 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 		//function to initialize the map with API V3
 		function initialize() {
 			var optionsMap = {
+{/literal}
 				zoom: 12,
 				center: new google.maps.LatLng({$gmap_lat}, {$gmap_long}),
 				mapTypeId: google.maps.MapTypeId.ROADMAP
+{literal}
 			};
 			var map = new google.maps.Map(document.getElementById("map"), optionsMap);
 		}
@@ -125,10 +127,9 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 		}
 		
 		request.send(null);
-	}
-	// display a warning if the browser was not compatible
-    else {
-      alert("Sorry, the Google Maps API is not compatible with this browser");
+	} else {
+		// display a warning if the browser was not compatible
+      	alert("Sorry, the Google Maps API is not compatible with this browser");
     }
 	
 //]]>
