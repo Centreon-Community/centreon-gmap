@@ -51,7 +51,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 		
      	       
       	// A function to create the marker and set up the event window
-      	function createMarker(position, hostname, popup, location_status) {
+      	function createMarker(position, hostname, popup, location_status, icon_image) {
 			if (location_status == "DOWN") {
        			marker = new google.maps.Marker({
 	       			position: position,
@@ -84,7 +84,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
         	htmls[i] = popup;
         	
         	// add a line to the side_bar html
-        	side_bar_html += '<a href="javascript:myclick(' + i + ')">' + hostname + '<\/a><br>';
+        	side_bar_html += '<img src="'+icon_image+'" width="20px" heigth="20px"> <a href="javascript:myclick(' + i + ')">' + hostname + '<\/a><br>';
         	i++;
         	return marker;
       	}
@@ -104,11 +104,12 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 	        	var lng = parseFloat(location[i].getAttribute("lng"));
 	        	var position = new google.maps.LatLng(lat, lng);
 	    		var hostname = location[i].getAttribute("name");
+	    		var icon_image = location[i].getAttribute("icon");
 	    		var location_status = location[i].getAttribute("location_status");
 	    		var hosts = location[i].childNodes[0].nodeValue;
 	    		
 	    		// create the marker
-	        	createMarker(position, hostname, hosts, location_status);
+	        	createMarker(position, hostname, hosts, location_status, icon_image);
 	        }
 		 	
 		 	document.getElementById("side_bar").innerHTML = side_bar_html;

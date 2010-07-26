@@ -142,13 +142,14 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	$parnode = $dom->appendChild($node);
 	
 	$DBRESULT =& $pearDB->query("SELECT DISTINCT host.host_name AS name, locations.lat AS lat, ". 
-								"locations.long AS lng, locations.h_id AS h_id, locations.hg_id AS hg_id ".
+								"locations.address AS addr, locations.long AS lng, locations.h_id AS h_id, locations.hg_id AS hg_id ".
 								"FROM locations, host, hostgroup ".
 								"WHERE locations.h_id = host.host_id ".
 								"UNION ".
 								"SELECT hostgroup.hg_name as name, ".
 								"locations.lat as lat, ".
 								"locations.long as lng, ".
+								"locations.address as addr, ".
 								"locations.h_id as hid, ".
 								"locations.hg_id AS hg_id ".
 								"FROM locations,hostgroup ".
@@ -167,12 +168,19 @@ For information : justin@ensgrp.com or www.ensgrp.com
         $newnode->setAttribute("name",$marker['name']);
 		$newnode->setAttribute("lat", $marker['lat']);
 		$newnode->setAttribute("lng", $marker['lng']);
+		
 		$newnode->setAttribute("location_status", $hostState[$information["current_state"]]);
 		if ($information["icon_image"] != "") {
-			$popupString .= "<img src='./img/media/".$information["icon_image"]."'><br><br>";
+			$information["icon_image"] = "./img/media/".$information["icon_image"];
+			$popupString .= "<img src='".$information["icon_image"]."' width='25px' heigth='25px'><br><br>";
+		} else {
+			$information["icon_image"] = "./img/icones/16x16/server_network.gif";
+			$popupString .= "<img src='".$information["icon_image"]."' width='20px' heigth='20px'><br><br>";
 		}
+		$newnode->setAttribute("icon", $information["icon_image"]);
 		$popupString .= "<b>"._("Host name:")."</b>"." ".$marker['name']."<br>";
-		$popupString .= "<b>"._("Host address:")."</b>"." ".$information['address']."<br>";		
+		$popupString .= "<b>"._("Host address:")."</b>"." ".$information['address']."<br>";	
+		
 		if ($hostState[$information["current_state"]] == "DOWN") {
 			$popupString .= "<b>"._("Status:")."</b> <font color='red'>"." ".$hostState[$information["current_state"]]."</font><br>";
 		} else if ($hostState[$information["current_state"]] == "UP") {
@@ -189,6 +197,8 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		foreach ($stateService as $state => $nb) {
 			$popupString .= "<b>"."Services ".$serviceState[$state].":"."</b>"." ".$nb."<br>";
 		}
+		
+		$popupString .= "<br/><b>"._("Location:")."</b>"." ".$marker['addr']."<br>";		
 		
 		$popupString .= "<br><br><center><a href='?p=20201&o=svc&search=".$marker['name']."&search_host=1&search_service=0'>"._("Show Services Details")."</a></center>";
 		$newnode2 = $node->appendChild($dom->createTextNode($popupString));
