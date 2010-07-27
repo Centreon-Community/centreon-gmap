@@ -61,7 +61,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	$form->addElement('header', 'gmap_header', _("Gmap Module Options"));
 	$form->addElement('text', 'lat', _("Lattitude"), $attrsText3 );
 	$form->addElement('text', 'long', _("Longitude"), $attrsText3 );
-	$form->addElement('text', 'height', _("Height"), $attrsText3 );
+	$form->addElement('text', 'height', _("Map Height"), $attrsText3 );
 	$form->addElement('select', 'zoomLevel', _("Zoom Level"), $zoomLevel);
 	
 	$form->addElement('hidden', 'id');

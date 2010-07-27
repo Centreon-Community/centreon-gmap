@@ -195,7 +195,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		$popupString .= "<b>"._("Last check:")."</b>"." ".$information["last_check2"]."<br>";
 		
 		foreach ($stateService as $state => $nb) {
-			$popupString .= "<b>"."Services ".$serviceState[$state].":"."</b>"." ".$nb."<br>";
+			$popupString .= "<b>"._("Services ").$serviceState[$state].":"."</b>"." ".$nb."<br>";
 		}
 		
 		$popupString .= "<br/><b>"._("Location:")."</b>"." ".$marker['addr']."<br>";		
