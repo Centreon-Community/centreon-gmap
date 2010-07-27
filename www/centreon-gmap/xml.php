@@ -186,7 +186,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		} else if ($hostState[$information["current_state"]] == "UP") {
 			$popupString .= "<b>"._("Status:")."</b> <font color='green'>"." ".$hostState[$information["current_state"]]."</font><br>";
 		} else if ($hostState[$information["current_state"]] == "UNREACHABLE") {
-			$popupString .= "<b>"._("Status:")."</b> <font color='yellow'>"." ".$hostState[$information["current_state"]]."</font><br>";
+			$popupString .= "<b>"._("Status:")."</b> <font color='orange'>"." ".$hostState[$information["current_state"]]."</font><br>";
 		}
 				
 		if ($information["current_state"]) {

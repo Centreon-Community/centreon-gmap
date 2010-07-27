@@ -1,4 +1,4 @@
-<?
+<?php
 /**************************************************
 Centreon GMAP Module version: 1.1
 This module is licensed under the GPLv2

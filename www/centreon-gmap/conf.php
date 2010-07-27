@@ -1,4 +1,4 @@
-<?
+<?php
 $module_conf['centreon-gmap']["name"] = "centreon-gmap";
 $module_conf['centreon-gmap']["rname"] = "Google Map";
 $module_conf['centreon-gmap']["mod_release"] = "1.1";

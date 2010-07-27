@@ -39,19 +39,13 @@ For information : justin@ensgrp.com or www.ensgrp.com
      */
 	$gmap_op = readConfigOptions($pearDB,$oreon);
 	
-	if ($gmap_op['api_key']) {
-	    $tpl = new Smarty();
-	    $tpl = initSmartyTpl($path, $tpl);
-	    $tpl->assign("gmap_key", $gmap_op['api_key']);
-        $tpl->assign("gmap_lat", $gmap_op['lat']);
-        $tpl->assign("gmap_long", $gmap_op['long']);
-        $tpl->assign("gmap_height", $gmap_op['height']);
-        $tpl->assign("gmap_width", $gmap_op['width']);
-        $tpl->assign("gmap_zoom", $gmap_op['zoomLevel']);
-	    $tpl->display("gmap.ihtml");
-	} else {
-	   echo _("You need to obtain a valid google map key which can be obtained <a href=http://www.google.com/apis/maps/>Here</a><br>"
-		."After obtaining a valid google api key, add it to the module configuration under <a href=main.php?p=5010190&o=w>Administration->Options->Gmap Options</a>");
-	}
-
+	$tpl = new Smarty();
+	$tpl = initSmartyTpl($path, $tpl);
+    $tpl->assign("gmap_lat", $gmap_op['lat']);
+    $tpl->assign("gmap_long", $gmap_op['long']);
+    $tpl->assign("gmap_height", $gmap_op['height']);
+    $tpl->assign("gmap_width", $gmap_op['width']);
+    $tpl->assign("gmap_zoom", $gmap_op['zoomLevel']);
+	$tpl->display("gmap.ihtml");
+	
 ?>
