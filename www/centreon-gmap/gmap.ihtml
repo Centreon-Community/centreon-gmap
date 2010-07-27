@@ -12,7 +12,6 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 //<![CDATA[
 
 		var map;
-		var marker;
 		var infoWindow = new google.maps.InfoWindow();
 		var imageUP = new google.maps.MarkerImage("modules/centreon-gmap/img/green-dot.png",
      		null, 
@@ -33,7 +32,6 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 		var side_bar_html = "";
 		var gmarkers = [];
 		var htmls = [];
-		var i = 0;
 		var urlXml = "modules/centreon-gmap/xml.php";
 
 		//function to initialize the map with API V3
@@ -51,7 +49,8 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 		
      	       
       	// A function to create the marker and set up the event window
-      	function createMarker(position, hostname, popup, location_status, icon_image) {
+      	function createMarker(position, hostname, popup, location_status, icon_image, i) {
+			var marker;
 			if (location_status == "DOWN") {
        			marker = new google.maps.Marker({
 	       			position: position,
@@ -73,15 +72,15 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 	       			icon: imageUP
        			});
 			}
-			
+
+			// save the info we need to use later for the side_bar
+        	gmarkers[i] = marker;
+        	htmls[i] = popup;
+
         	google.maps.event.addListener(marker, 'click', function() {
           		infoWindow.setContent(popup);
           		infoWindow.open(map, marker);
         	});
-        	
-        	// save the info we need to use later for the side_bar
-        	gmarkers[i] = marker;
-        	htmls[i] = popup;
         	
         	// add a line to the side_bar html
         	side_bar_html += '<img src="'+icon_image+'" width="20px" heigth="20px"> <a href="javascript:myclick(' + i + ')">' + hostname + '<\/a><br>';
@@ -109,7 +108,8 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 	    		var hosts = location[i].childNodes[0].nodeValue;
 	    		
 	    		// create the marker
-	        	createMarker(position, hostname, hosts, location_status, icon_image);
+	        	var ret = createMarker(position, hostname, hosts, location_status, icon_image, i);
+	        	//alert(hosts+ret);
 	        }
 		 	
 		 	document.getElementById("side_bar").innerHTML = side_bar_html;
