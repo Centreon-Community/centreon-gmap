@@ -1,12 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-<title>Google Maps</title>
-<script src="http://maps.google.com/maps?file=api&amp;v=2.93&amp;key={$gmap_key}" type="text/javascript"></script>
-</head>
+<noscript><b>JavaScript must be enabled in order for you to use Google Maps.</b> 
+However, it seems JavaScript is either disabled or not supported by your browser. 
+To view Google Maps, enable JavaScript by changing your browser options, and then try again.</noscript>
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript" src="modules/centreon-gmap/javascripts/lib/prototype.js"></script>
 <script type="text/javascript" src="modules/centreon-gmap/javascripts/src/scriptaculous.js?load=effects"></script>
+
 {literal}
 <script type="text/javascript">
   //<![CDATA[
@@ -71,17 +70,16 @@
 
 
     function createMap() {
-      if (GBrowserIsCompatible()) {
-        map = new GMap2(document.getElementById("map"));
-        map.addControl(new GLargeMapControl());
-      	map.addControl(new GMapTypeControl());
-      	
-      	{/literal}
-        map.setCenter(new GLatLng({$gmap_lat}, {$gmap_long}), 5);
-        {literal}
-        
-        geocoder = new GClientGeocoder();
-      }
+    	var optionsMap = {
+{/literal}
+			zoom: {$gmap_zoom},
+			center: new google.maps.LatLng({$gmap_lat}, {$gmap_long}),
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+{literal}
+		}
+        map = new google.maps.Map(document.getElementById("map"), optionsMap);
+
+        geocoder = new google.maps.Geocoder();
     }
 	
     function showAddress(host) {

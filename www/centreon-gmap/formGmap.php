@@ -31,10 +31,8 @@ For information : justin@ensgrp.com or www.ensgrp.com
 
 	$sopt = readConfigOptions($pearDB,$oreon);
 
-	$attrsText 		= array("size"=>"126");
 	$attrsText2		= array("size"=>"20");
 	$attrsText3		= array("size"=>"10");
-	$attrsAdvSelect = null;
 	$zoomLevel		= array('0' => '0', 
 							'1' => '1',
 							'2' => '2',
@@ -61,11 +59,9 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	$form = new HTML_QuickForm('Form', 'post', "?p=".$p);
 	$form->addElement('header', 'title', _("Gmap Module Options"));
 	$form->addElement('header', 'gmap_header', _("Gmap Module Options"));
-	$form->addElement('text', 'api_key', _("Google API Key"), $attrsText );
 	$form->addElement('text', 'lat', _("Lattitude"), $attrsText3 );
 	$form->addElement('text', 'long', _("Longitude"), $attrsText3 );
 	$form->addElement('text', 'height', _("Height"), $attrsText3 );
-	$form->addElement('text', 'width', _("Width"), $attrsText3 );
 	$form->addElement('select', 'zoomLevel', _("Zoom Level"), $zoomLevel);
 	
 	$form->addElement('hidden', 'id');

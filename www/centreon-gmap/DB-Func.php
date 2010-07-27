@@ -90,16 +90,12 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		$ret = array();
 		$ret = $form->getSubmitValues();
 		$rq = "UPDATE `gmap_op` SET ";
-		$rq .= "`api_key` = ";
-		isset($ret["api_key"]) && $ret["api_key"] != NULL ? $rq .= "'".htmlentities($ret["api_key"], ENT_QUOTES)."', ": $rq .= "NULL, ";
 		$rq .= "`lat` = ";
 		isset($ret["lat"]) && $ret["lat"] != NULL ? $rq .= "'".htmlentities($ret["lat"], ENT_QUOTES)."', ": $rq .= "NULL, ";
 		$rq .= "`long` = ";
 		isset($ret["long"]) && $ret["long"] != NULL ? $rq .= "'".htmlentities($ret["long"], ENT_QUOTES)."', ": $rq .= "NULL, ";
 		$rq .= "`height` = ";
 		isset($ret["height"]) && $ret["height"] != NULL ? $rq .= "'".htmlentities($ret["height"], ENT_QUOTES)."', ": $rq .= "NULL, ";
-		$rq .= "`width` = ";
-		isset($ret["width"]) && $ret["width"] != NULL ? $rq .= "'".htmlentities($ret["width"], ENT_QUOTES)."', ": $rq .= "NULL ";
 		$rq .= "`zoomLevel` = ";
 		isset($ret["zoomLevel"]) && $ret["zoomLevel"] != NULL ? $rq .= "'".htmlentities($ret["zoomLevel"], ENT_QUOTES)."' ": $rq .= "NULL ";
 		$rq .= "WHERE `id` = '".$id."'";
