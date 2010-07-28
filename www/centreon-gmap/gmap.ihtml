@@ -83,7 +83,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
         	});
         	
         	// add a line to the side_bar html
-        	side_bar_html += '<img src="'+icon_image+'" width="20px" heigth="20px"> <a href="javascript:myclick(' + i + ')">' + hostname + '<\/a><br>';
+        	side_bar_html += '<img src="'+icon_image+'" width="20px" heigth="20px" style="margin-bottom:0.5px;"> <a href="javascript:myclick(' + i + ')">' + hostname + '<\/a><br>';
         	i++;
         	return marker;
       	}
