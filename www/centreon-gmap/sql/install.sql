@@ -1,4 +1,4 @@
-CREATE TABLE `gmap_op` (
+CREATE TABLE `mod_gmap_options` (
   `id` tinyint(4) NOT NULL auto_increment,
   `lat` float NOT NULL default '0',
   `long` float NOT NULL default '0',
@@ -17,7 +17,7 @@ CREATE TABLE locations (
   PRIMARY KEY  (l_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-INSERT INTO `gmap_op` (`id`, `lat`, `long`, `height`, `zoomLevel`) VALUES 
+INSERT INTO `mod_gmap_options` (`id`, `lat`, `long`, `height`, `zoomLevel`) VALUES 
 (1, 14.6048, 7.03125, 500, 6);
 INSERT INTO `css_color_menu` (`id_css_color_menu`, `menu_nb`, `css_name`) VALUES
 (9, 9, 'green_css.php');

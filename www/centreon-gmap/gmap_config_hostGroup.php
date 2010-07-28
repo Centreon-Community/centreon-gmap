@@ -53,22 +53,17 @@ if(isset($_GET['l_id'])) {
         	print "DB Error : ".$DBRESULT->getDebugInfo()."<br>";
 }
 // we pass either group or host
-getHostgroupLatLong2('group');
+	getHostgroupLatLong2('group');
 
-getHostGroupList();
-$gmap_op = readConfigOptions($pearDB,$oreon);
-	// if the gmap api is set, display page
-	if($gmap_op['api_key']) {
-		$tpl = new Smarty();
-	    	$tpl = initSmartyTpl($path, $tpl);
-	    	$tpl->assign("h_names", $smarty_host);
-		$tpl->assign("host_list", $smarty_host_list);
-		$tpl->assign("hostgroup_list", $smarty_hostgroup_list);
-		$tpl->assign("gmap_key", $gmap_op['api_key']);
-	    	$tpl->display("gmap_config_hostGroup.ihtml");
-	}
-	else 
-	   echo _("You need to obtain a valid google map key which can be obtained <a href=http://www.google.com/apis/maps/>Here</a><br>"
-		."After obtaining a valid google api key, add it to the module configuration under <a href=main.php?p=5010190&o=w>Administration->Options->Gmap Options</a>");
-
+	getHostGroupList();
+	$mod_gmap_options = readConfigOptions($pearDB,$oreon);
+	
+	$tpl = new Smarty();
+	$tpl = initSmartyTpl($path, $tpl);
+	$tpl->assign("h_names", $smarty_host);
+	$tpl->assign("host_list", $smarty_host_list);
+	$tpl->assign("hostgroup_list", $smarty_hostgroup_list);
+	$tpl->assign("gmap_key", $mod_gmap_options['api_key']);
+	$tpl->display("gmap_config_hostGroup.ihtml");
+	
 ?>

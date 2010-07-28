@@ -71,7 +71,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		global $pearDB, $form;
 		
 		$gmap_cfg = array();
-		$res =& $pearDB->query("SELECT * FROM gmap_op WHERE id = '1' LIMIT 1");
+		$res =& $pearDB->query("SELECT * FROM mod_gmap_options WHERE id = '1' LIMIT 1");
 		if (PEAR::isError($pearDB)) {
 			print "Mysql Error : ".$pearDB->getMessage();
 		}
@@ -89,7 +89,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		
 		$ret = array();
 		$ret = $form->getSubmitValues();
-		$rq = "UPDATE `gmap_op` SET ";
+		$rq = "UPDATE `mod_gmap_options` SET ";
 		$rq .= "`lat` = ";
 		isset($ret["lat"]) && $ret["lat"] != NULL ? $rq .= "'".htmlentities($ret["lat"], ENT_QUOTES)."', ": $rq .= "NULL, ";
 		$rq .= "`long` = ";

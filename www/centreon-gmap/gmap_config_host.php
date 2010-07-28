@@ -55,17 +55,17 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	getHostgroupLatLong2('host');
 	getHostList();
 	
-	$gmap_op = readConfigOptions($pearDB,$oreon);
+	$mod_gmap_options = readConfigOptions($pearDB,$oreon);
 	
 	$tpl = new Smarty();
    	$tpl = initSmartyTpl($path, $tpl);
    	$tpl->assign("h_names", $smarty_host);
 	$tpl->assign("host_list", $smarty_host_list);
 	$tpl->assign("hostgroup_list", $smarty_hostgroup_list);
-	$tpl->assign("gmap_lat", $gmap_op['lat']);
-    $tpl->assign("gmap_long", $gmap_op['long']);
-    $tpl->assign("gmap_height", $gmap_op['height']);
-    $tpl->assign("gmap_zoom", $gmap_op['zoomLevel']);
+	$tpl->assign("gmap_lat", $mod_gmap_options['lat']);
+    $tpl->assign("gmap_long", $mod_gmap_options['long']);
+    $tpl->assign("gmap_height", $mod_gmap_options['height']);
+    $tpl->assign("gmap_zoom", $mod_gmap_options['zoomLevel']);
         
     /*
      * translations
