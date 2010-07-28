@@ -116,63 +116,33 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 	// Function to get the latitude and longitude of the address
     function showAddress(host) {
     
+    	// JE COMPRENDS PAS A QUOI CA SERT ET ILS SONT OU LES ;
+	    var host_address = "address_" + host;
+		var host_lat = "lat_" + host;
+		var host_long = "long_" + host;
+    
     	var searchAddress = document.demo[host_address].value;
     
     	geocoder.geocode({'address': searchAddress}, function(results, status) {
     	
-    		// JE COMPRENDS PAS A QUOI CA SERT ET ILS SONT OU LES ;
-	    	host_address = "address_" + host
-			host_lat = "lat_" + host
-			host_long = "long_" + host
-			
-			if (status == google.maps.GeocoderStatus.OK) {
+    		if (status == google.maps.GeocoderStatus.OK) {
 					
 				var latitude = results[0].geometry.location.lat();
-				var longitude = results[0].geometry.location.long();
+				var longitude = results[0].geometry.location.lng();
 		        map.setCenter(results[0].geometry.location);
 		        var marker = new google.maps.Marker({
 		            map: map, 
 		            position: results[0].geometry.location
 		        });
+		        		        
+		        document.demo[host_lat].value = latitude;
+				document.demo[host_long].value = longitude;
 		        
 	   		} else {
 	        	alert("Geocode was not successful for the following reason: " + status);
 			}
-				
-    	
-    		// CETTE PARTIE VA POUVOIR ETRE SUPPRIMEE
- /*     	if (geocoder) {
-			host_address = "address_" + host
-			host_lat = "lat_" + host
-			host_long = "long_" + host
-
-			address_f = document.demo[host_address].value;
-       		geocoder.getLatLng(
-          	address_f,
-          	function(point) {
-            	if (!point) {
-            		alert(address_f + " not found");
-            	} else {
-              		map.setCenter(point, 13);
-              		var marker = new GMarker(point);
- 					document.demo[host_lat].value = point;
-      
-					var where_is_mytool=document.demo[host_lat].value;
-					var mytool_array=where_is_mytool.split("(");
-					var split_again=mytool_array[1].split(",");
-					var split_final=split_again[1].split(")");
-
-					document.demo[host_lat].value = split_again[0];
-					document.demo[host_long].value = split_final[0];
-	
-					map.addOverlay(marker);
-        			marker.openInfoWindowHtml(address_f);
-            	}
-          	});
-      	}
-      	*/
-      	
-    });
+			      	
+    	});
     }
     
 	window.onload = createMap;
@@ -196,7 +166,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 				</tr>
 				
 				
-				// JE NE COMPRENDS PAS NON PLUS CE CODE - DU COMMENTAIRE ?????
+				{* JE NE COMPRENDS PAS NON PLUS CE CODE - DU COMMENTAIRE ?????*}
 				   	{* Values of $h_names array
 						hname = h_id (host id)
 				        item0 = l_id  (location id)
