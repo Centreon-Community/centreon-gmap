@@ -47,12 +47,12 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 	function ajaxFunction(lid,action) {
 		// The variable that makes Ajax possible!
 		var ajaxRequest;  
-        host_address = "address_" + lid
-        host_lat = "lat_" + lid
-        host_long = "long_" + lid
-		host_tr = "tr_" + lid
-		update_id = "update_" + lid
- 		hg_id = "host_group_list_" + lid
+        var host_address = "address_" + lid;
+        var host_lat = "lat_" + lid;
+        var host_long = "long_" + lid;
+		var host_tr = "tr_" + lid;
+		var update_id = "update_" + lid;
+ 		var hg_id = "host_group_list_" + lid;
 	
 		new Element.show(lid); 
 		try {
@@ -81,10 +81,11 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 			}
 		}
 	
-		lat = document.demo[host_lat].value
-		long = document.demo[host_long].value
-		address = document.demo[host_address].value
-		hg_id = document.demo[hg_id].value
+		var lat = document.demo[host_lat].value;
+		var long = document.demo[host_long].value;
+		var address = document.demo[host_address].value;
+		var hg_id = document.demo[hg_id].value;
+		
 		if (action == "update") {
 			var queryString = "&l_id=" + lid +"&lat=" + lat + "&long=" + long + "&address=" + address + "&hg_id=" + hg_id + "&action=update";
 		}
@@ -116,7 +117,6 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 	// Function to get the latitude and longitude of the address
     function showAddress(host) {
     
-    	// JE COMPRENDS PAS A QUOI CA SERT ET ILS SONT OU LES ;
 	    var host_address = "address_" + host;
 		var host_lat = "lat_" + host;
 		var host_long = "long_" + host;
@@ -139,7 +139,9 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 				document.demo[host_long].value = longitude;
 		        
 	   		} else {
-	        	alert("Geocode was not successful for the following reason: " + status);
+{/literal}
+	        	alert("{$messageAlert}" + status);
+{literal}
 			}
 			      	
     	});
@@ -166,7 +168,6 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 				</tr>
 				
 				
-				{* JE NE COMPRENDS PAS NON PLUS CE CODE - DU COMMENTAIRE ?????*}
 				   	{* Values of $h_names array
 						hname = h_id (host id)
 				        item0 = l_id  (location id)

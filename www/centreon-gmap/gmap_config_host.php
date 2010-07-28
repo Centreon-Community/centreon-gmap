@@ -76,6 +76,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
     $tpl->assign("longitude", _("Longitude"));
     $tpl->assign("actions", _("Actions"));
     $tpl->assign("addLocation", _("Add a location for a host"));
+    $tpl->assign("messageAlert", _("Geocode was not successful for the following reason: "));
         
    	$tpl->display("gmap_config_host.ihtml");
 	
