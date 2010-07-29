@@ -63,7 +63,9 @@ if(isset($_GET['l_id'])) {
 	$tpl->assign("h_names", $smarty_host);
 	$tpl->assign("host_list", $smarty_host_list);
 	$tpl->assign("hostgroup_list", $smarty_hostgroup_list);
-	$tpl->assign("gmap_key", $mod_gmap_options['api_key']);
+	$tpl->assign("gmap_zoom", $mod_gmap_options['zoomLevel']);
+	$tpl->assign("gmap_lat", $mod_gmap_options['lat']);
+    $tpl->assign("gmap_long", $mod_gmap_options['long']);
 	$tpl->display("gmap_config_hostGroup.ihtml");
 	
 ?>
