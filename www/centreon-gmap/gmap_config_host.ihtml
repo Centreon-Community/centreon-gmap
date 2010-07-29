@@ -153,49 +153,48 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 </script>
 <div id="map" style="width: 800px; height: 400px"></div>
 {/literal}
-	<div>
-		<br/>
-		<a href="javascript:insRow('myTable')"><img src="./img/icones/16x16/navigate_plus.gif" alt="Add Location">&nbsp;{$addLocation}</a>
-		<br/>
-		<FORM name="demo">
-			<table id="myTable" class="ListTable">
-				<tr class="ListHeader">
-					<td class="ListColHeaderLeft" width=20%>{$host}</td>
-					<td class="ListColHeaderLeft" width=50% colspan=2>{$address}</td>
-					<td class="ListColHeaderCenter" width=15%>{$latitude}</td>
-					<td class="ListColHeaderCenter" width=15%>{$longitude}</td>
-					<td class="ListColHeaderCenter" width=15%>{$actions}</td>
+<div>
+	<br/>
+	<a href="javascript:insRow('myTable')"><img src="./img/icones/16x16/navigate_plus.gif" alt="Add Location">&nbsp;{$addLocation}</a>
+	<br/>
+	<FORM name="demo">
+		<table id="myTable" class="ListTable">
+			<tr class="ListHeader">
+				<td class="ListColHeaderLeft" width=20%>{$host}</td>
+				<td class="ListColHeaderLeft" width=50% colspan=2>{$address}</td>
+				<td class="ListColHeaderCenter" width=15%>{$latitude}</td>
+				<td class="ListColHeaderCenter" width=15%>{$longitude}</td>
+				<td class="ListColHeaderCenter" width=15%>{$actions}</td>
+			</tr>
+			
+			
+			   	{* Values of $h_names array
+					hname = h_id (host id)
+			        item0 = l_id  (location id)
+			        item1 = h_id  (host id)
+			        item2 = hg_id (hostgroup id)
+			        item3 = address
+			        item4 = lat   (lattitude)
+			        item5 = long  (longitude)
+			    *}
+			
+			
+			{foreach key=hname item=item from=$h_names}
+				<tr id=tr_{$hname}" class='list_one'>
+					<td class="ListColLeft">
+						<select name="host_group_list_{$item[0]}" size="1">
+							<option value="none" selected="selected"></option>
+						{foreach key=host_id item=host_name from=$hostgroup_list}
+		        	     	<option value={$host_id} {if $item[1] == $host_id} selected="selected"{/if}>{$host_name}</option>
+			            {/foreach}
+					</td>
+					<td class="ListColLeft"><input type="text" name="address_{$item[0]}" size="70" value="{$item[3]}"></td> 
+					<td class="ListColLeft"><img id="arrow_{$hname}" onclick="showAddress('{$item[0]}')" src=./img/icones/16x16/arrow_right_blue.gif></td>
+					<td class="ListColCenter"><input type="text" name="lat_{$item[0]}" size="15" value="{$item[4]}"></td>
+					<td class="ListColCenter"><input type="text" name="long_{$item[0]}" size="15" value="{$item[5]}"></td>
+					<td class="ListColNoWrap"><img onclick="ajaxFunction('{$item[0]}','update')" src=./img/icones/16x16/data_into.gif>&nbsp;<img onclick="ajaxFunction('{$item[0]}','delete')" src=./img/icones/16x16/delete2.gif><img id="{$item[0]}" style="display:none;" src="./img/icones/16x16/spinner_blue.gif" alt="Updating"></td>
 				</tr>
-				
-				
-				   	{* Values of $h_names array
-						hname = h_id (host id)
-				        item0 = l_id  (location id)
-				        item1 = h_id  (host id)
-				        item2 = hg_id (hostgroup id)
-				        item3 = address
-				        item4 = lat   (lattitude)
-				        item5 = long  (longitude)
-				    *}
-				
-				
-				{foreach key=hname item=item from=$h_names}
-					<tr id=tr_{$hname}" class='list_one'>
-						<td class="ListColLeft">
-							<select name="host_group_list_{$item[0]}" size="1">
-								<option value="none" selected="selected"></option>
-							{foreach key=host_id item=host_name from=$hostgroup_list}
-			        	     	<option value={$host_id} {if $item[1] == $host_id} selected="selected"{/if}>{$host_name}</option>
-				            {/foreach}
-						</td>
-						<td class="ListColLeft"><input type="text" name="address_{$item[0]}" size="70" value="{$item[3]}"></td> 
-						<td class="ListColLeft"><img id="arrow_{$hname}" onclick="showAddress('{$item[0]}')" src=./img/icones/16x16/arrow_right_blue.gif></td>
-						<td class="ListColCenter"><input type="text" name="lat_{$item[0]}" size="15" value="{$item[4]}"></td>
-						<td class="ListColCenter"><input type="text" name="long_{$item[0]}" size="15" value="{$item[5]}"></td>
-						<td class="ListColNoWrap"><img onclick="ajaxFunction('{$item[0]}','update')" src=./img/icones/16x16/data_into.gif>&nbsp;<img onclick="ajaxFunction('{$item[0]}','delete')" src=./img/icones/16x16/delete2.gif><img id="{$item[0]}" style="display:none;" src="./img/icones/16x16/spinner_blue.gif" alt="Updating"></td>
-					</tr>
-				{/foreach}	
-			</table>
-		</form>
-	</div>
-</html>
+			{/foreach}	
+		</table>
+	</form>
+</div>

@@ -1,31 +1,32 @@
 {$form.javascript}
 <form {$form.attributes}>
-<table class="ListTable">
- 	<tr class="ListHeader">
- 		<td class="FormHeader" colspan="2"><img src='./img/icones/16x16/lifebelt.gif'>&nbsp;&nbsp;{$form.header.title}</td>
- 	</tr>
- 	<tr class="list_lvl_1">
- 		<td class="ListColLvl1_name" colspan="2"><img src='./modules/centreon-gmap/img/ico_google.jpg'>&nbsp;&nbsp;{$form.header.gmap_header}</td>
- 	</tr>
-	<tr class="list_one">
-		<td class="FormRowField">{$form.lat.label}</td>
-		<td class="FormRowValue">{$form.lat.html}</td>
-	</tr>
-	<tr class="list_two">
-		<td class="FormRowField">{$form.long.label}</td>
-		<td class="FormRowValue">{$form.long.html}</td>
-	</tr>	
-	<tr class="list_one">
-		<td class="FormRowField">{$form.height.label}</td>
-		<td class="FormRowValue">{$form.height.html}</td>
-	</tr>
-	<tr class="list_two">
-		<td class="FormRowField">{$form.zoomLevel.label}</td>
-		<td class="FormRowValue">{$form.zoomLevel.html}</td>
-	</tr>		
-</table>
+	<table class="ListTable">
+	 	<tr class="ListHeader">
+	 		<td class="FormHeader" colspan="2"><img src='./img/icones/16x16/lifebelt.gif'>&nbsp;&nbsp;{$form.header.title}</td>
+	 	</tr>
+	 	<tr class="list_lvl_1">
+	 		<td class="ListColLvl1_name" colspan="2"><img src='./modules/centreon-gmap/img/ico_google.jpg'>&nbsp;&nbsp;{$form.header.gmap_header}</td>
+	 	</tr>
+		<tr class="list_one">
+			<td class="FormRowField">{$form.lat.label}</td>
+			<td class="FormRowValue">{$form.lat.html}</td>
+		</tr>
+		<tr class="list_two">
+			<td class="FormRowField">{$form.long.label}</td>
+			<td class="FormRowValue">{$form.long.html}</td>
+		</tr>	
+		<tr class="list_one">
+			<td class="FormRowField">{$form.height.label}</td>
+			<td class="FormRowValue">{$form.height.html}</td>
+		</tr>
+		<tr class="list_two">
+			<td class="FormRowField">{$form.zoomLevel.label}</td>
+			<td class="FormRowValue">{$form.zoomLevel.html}</td>
+		</tr>		
+	</table>
+	
 	<div id="validForm">
 		<p>{$form.submitC.html}&nbsp;&nbsp;&nbsp;{$form.reset.html}</p>
 	</div>
-{$form.hidden}
+	{$form.hidden}
 </form>

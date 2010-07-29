@@ -59,7 +59,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	$form = new HTML_QuickForm('Form', 'post', "?p=".$p);
 	$form->addElement('header', 'title', _("Gmap Module Options"));
 	$form->addElement('header', 'gmap_header', _("Gmap Module Options"));
-	$form->addElement('text', 'lat', _("Lattitude"), $attrsText3 );
+	$form->addElement('text', 'lat', _("Latitude"), $attrsText3 );
 	$form->addElement('text', 'long', _("Longitude"), $attrsText3 );
 	$form->addElement('text', 'height', _("Map Height"), $attrsText3 );
 	$form->addElement('select', 'zoomLevel', _("Zoom Level"), $zoomLevel);
@@ -71,12 +71,12 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	#
 	## Form Rules
 	#
-	function slash($elem = NULL)	{
+	function slash($elem = NULL) {
 		if ($elem)
 			return rtrim($elem, "/")."/";
 	}
+	
 	$form->applyFilter('_ALL_', 'trim');
-
 
 	#
 	##End of form definition
@@ -94,7 +94,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 
 
     $valid = false;
-	if ($form->validate())	{
+	if ($form->validate()) {
 
 		updateGmapCFG($form->getSubmitValue("id"));
 		$o = "w";

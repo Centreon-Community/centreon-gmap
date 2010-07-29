@@ -31,28 +31,29 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	global $pearDB;
 	global $oreon;
 
-## legacy update host	
-if(isset($_GET['l_id'])) {
-	$l_id = $_GET['l_id'];
-	$hg_id = $_GET['hg_id'];
-	$lat = $_GET['lat'];
-	$long = $_GET['long'];
-	$address = $_GET['address'];
-	$action = $_GET['action'];	
-        if($action == "new") {
-		$DBRESULT =& $pearDB->query("INSERT into`locations` SET `hg_id`='$hg_id',`lat`='$lat',`long`='$long',`address`='$address'");
+	## legacy update host	
+	if(isset($_GET['l_id'])) {
+		$l_id = $_GET['l_id'];
+		$hg_id = $_GET['hg_id'];
+		$lat = $_GET['lat'];
+		$long = $_GET['long'];
+		$address = $_GET['address'];
+		$action = $_GET['action'];	
+	        if($action == "new") {
+			$DBRESULT =& $pearDB->query("INSERT into`locations` SET `hg_id`='$hg_id',`lat`='$lat',`long`='$long',`address`='$address'");
+		}
+	 	if($action == "update") {
+			$DBRESULT =& $pearDB->query("UPDATE `locations` SET `hg_id`='$hg_id',`lat`='$lat',`long`='$long',`address`='$address' WHERE l_id='$l_id' LIMIT 1");
+		}
+		if($action == "delete") {
+	                $DBRESULT =& $pearDB->query("DELETE from `locations` WHERE l_id='$l_id' LIMIT 1");
+	        }
+	
+		if (PEAR::isError($DBRESULT))
+	        	print "DB Error : ".$DBRESULT->getDebugInfo()."<br>";
 	}
- 	if($action == "update") {
-		$DBRESULT =& $pearDB->query("UPDATE `locations` SET `hg_id`='$hg_id',`lat`='$lat',`long`='$long',`address`='$address' WHERE l_id='$l_id' LIMIT 1");
-	}
-	if($action == "delete") {
-                $DBRESULT =& $pearDB->query("DELETE from `locations` WHERE l_id='$l_id' LIMIT 1");
-        }
-
-	if (PEAR::isError($DBRESULT))
-        	print "DB Error : ".$DBRESULT->getDebugInfo()."<br>";
-}
-// we pass either group or host
+	
+	// we pass either group or host
 	getHostgroupLatLong2('group');
 
 	getHostGroupList();
@@ -66,6 +67,18 @@ if(isset($_GET['l_id'])) {
 	$tpl->assign("gmap_zoom", $mod_gmap_options['zoomLevel']);
 	$tpl->assign("gmap_lat", $mod_gmap_options['lat']);
     $tpl->assign("gmap_long", $mod_gmap_options['long']);
+    
+    /*
+     * translations
+     */
+    $tpl->assign("host", _("HostGroups"));
+    $tpl->assign("address", _("Address, postal code, city, country"));
+    $tpl->assign("latitude", _("Latitude"));
+    $tpl->assign("longitude", _("Longitude"));
+    $tpl->assign("actions", _("Actions"));
+    $tpl->assign("addLocation", _("Add a location for a host"));
+    $tpl->assign("messageAlert", _("Geocode was not successful for the following reason : "));
+    
 	$tpl->display("gmap_config_hostGroup.ihtml");
 	
 ?>
