@@ -120,4 +120,5 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	$tpl->assign('o', $o);
 	$tpl->assign('valid', $valid);
 	$tpl->display("formGmap.ihtml");
+
 ?>

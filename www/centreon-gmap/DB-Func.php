@@ -8,64 +8,6 @@ Version: 1.1
 Designed for: Centreon v2
 For information : justin@ensgrp.com or www.ensgrp.com
 **************************************************/
-	
-	function createMapLocations($pearDB,$oreon,$location_array){
-		global $smarty_hg_dot,$smarty_host_dot;
-		
-		$lat = $location_array[0];
-		$long = $location_array[1];
-		$h_id = $location_array[2];
-		$hg_id = $location_array[3];
-		$l_id = $location_array[4];
-	
-		if ($hg_id == 0) {
-			$DBRESULT =& $pearDB->query("SELECT host_id as id,host_name as name FROM host WHERE host_id='$h_id'");
-		}
-		if ($hg_id > 0)  {
-			$DBRESULT4 =& $pearDB->query("SELECT hg_id as id,hg_name as name FROM hostgroup WHERE hg_id='$hg_id'");
-        	while ($location_n =& $DBRESULT4->fetchRow()) {
-				$location_name = $location_n['name'];
-			}
-			
-			$DBRESULT =& $pearDB->query("SELECT hostgroup_hg_id as id,host_name as name FROM hostgroup_relation JOIN host ON hostgroup_relation.host_host_id = host.host_id WHERE hostgroup_relation.hostgroup_hg_id='$hg_id'");
-			//$DBRESULT =& $pearDB->query("SELECT hg_id as id,hg_name as name FROM hostgroup WHERE hg_id='$hg_id'");
-			}
-			if (PEAR::isError($DBRESULT)) {
-				print "DB Error : ".$DBRESULT->getDebugInfo()."<br>";	
-			}
-	        
-	        $n = 0;
-	        while ($new_map_location =& $DBRESULT->fetchRow()) {
-	            $i = 0;
-	            $location_nam = $new_map_location['name'];
-				$location_id = $new_map_location['id'];
-				## First, set the location dot as green
-				$host_status = "<a href=main.php?p=2020202&host_name=".urlencode($location_name)."><img src=\"modules/gmap/img/green-dot.png\"></a>";
-			
-				$n++;
-				if ($n == 10) {
-					$host_status = $host_status."<br>";
-					$n = 0;
-				}
-				$smarty_host_dot[$l_id][$location_name] = $host_status;
-			}
-			
-			$n = 0;
-			$hg_status = "iconUp";
-				
-			$smarty_hg_dot[$l_id][] = $location_nam;
-			$smarty_hg_dot[$l_id][] = $hg_status;
-			$smarty_hg_dot[$l_id][] = $lat;
-			$smarty_hg_dot[$l_id][] = $long;
-			$smarty_hg_dot[$l_id][] = $h_id;
-			$smarty_hg_dot[$l_id][] = $l_id;
-		}  
-        $DBRESULT->free();
-
-	    if (!isset($oreon)) {
-           exit();
-    }
-
 
 	function readConfigOptions()	{
 		global $pearDB, $form;
@@ -172,23 +114,4 @@ For information : justin@ensgrp.com or www.ensgrp.com
         $DBRESULT->free();
 	}
 
-	function getValidLocations($pearDB,$oreon)  {
-	 	$DBRESULT =& $pearDB->query("SELECT * FROM locations WHERE `lat` IS NOT NULL AND `long` IS NOT NULL");
-	    if (PEAR::isError($DBRESULT))
-	        print "DB Error : ".$DBRESULT->getDebugInfo()."<br>";
-	    while ($coors =& $DBRESULT->fetchRow()) {
-	  		$l_id = $coors['l_id'];
-			$lat = $coors['lat'];	
-	       	$long = $coors['long'];
-			$h_id = $coors['h_id'];
-			$hg_id = $coors['hg_id'];
-	    	$locations[$l_id][] = $lat;
-	    	$locations[$l_id][] = $long;
-	    	$locations[$l_id][] = $h_id;
-	    	$locations[$l_id][] = $hg_id;
-			$locations[$l_id][] = $l_id;
-		}
-	    ## return valid location array 
-	    return $locations;
-	}
 ?>
