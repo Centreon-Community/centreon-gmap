@@ -6,8 +6,8 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 <script type="text/javascript" src="modules/centreon-gmap/javascripts/lib/prototype.js"></script>
 <script type="text/javascript" src="modules/centreon-gmap/javascripts/src/scriptaculous.js?load=effects"></script>
 
-{literal}
 <script type="text/javascript">
+{literal}
 	var i = 0;
 	
 	function insRow() {
@@ -147,12 +147,13 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
     	});
     }
     
-	window.onload = createMap;
+	google.maps.event.addDomListener(window, 'load', createMap);
 	
     //]]>
-</script>
-<div id="map" style="width: 800px; height: 400px"></div>
 {/literal}
+</script>
+<div id="map" style="width:800px; height:400px"></div>
+
 <div>
 	<br/>
 	<a href="javascript:insRow('myTable')"><img src="./img/icones/16x16/navigate_plus.gif" alt="Add Location">&nbsp;{$addLocation}</a>
