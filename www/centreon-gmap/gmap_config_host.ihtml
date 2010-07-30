@@ -43,6 +43,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 
     var map = null;
     var geocoder = null;
+    var infoWindow = new google.maps.InfoWindow();
 
 	function ajaxFunction(lid,action) {
 		// The variable that makes Ajax possible!
@@ -137,6 +138,11 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 		        		        
 		        document.demo[host_lat].value = latitude;
 				document.demo[host_long].value = longitude;
+				
+				google.maps.event.addListener(marker, 'click', function() {
+      				infoWindow.setContent(searchAddress);
+      				infoWindow.open(map, marker);
+    			});
 		        
 	   		} else {
 {/literal}

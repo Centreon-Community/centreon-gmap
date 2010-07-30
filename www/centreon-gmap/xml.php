@@ -48,14 +48,14 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	function ServiceStatusPerHost($host_name) { 
 		global $ndo_prefix,$pearDB,$pearDBndo;
 		
-		$DBRESULT_NDO =& $pearDBndo->query("SELECT ".$ndo_prefix."services.service_object_id as sid, ".
+		$DBRESULT_NDO =& $pearDBndo->query("SELECT DISTINCT ".$ndo_prefix."services.service_object_id as sid, ".
 						   " ".$ndo_prefix."servicestatus.current_state as state ".
 						   "FROM ".$ndo_prefix."services,".$ndo_prefix."servicestatus,".$ndo_prefix."hosts ".
 						   "WHERE ".$ndo_prefix."hosts.display_name='$host_name' ".
 						   "AND ".$ndo_prefix."hosts.host_object_id = ".$ndo_prefix."services.host_object_id ".
 						   "AND ".$ndo_prefix."services.service_object_id = ".$ndo_prefix."servicestatus.service_object_id");
 		if (PEAR::isError($DBRESULT_NDO)) {
-	    	print "DB Error : ".$DBRESULT_NDO->getDebugInfo()."<br>";
+	    	print "DB Error : ".$DBRESULT_NDO->getDebugInfo()."<br/>";
 		}
 	    $state = array();
 	    while ($data =& $DBRESULT_NDO->fetchRow()) {
@@ -68,7 +68,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	}
 
       
-	function CreateHosts($lid,$pearDB) { // lid is the location id
+/*	function CreateHosts($lid,$pearDB) { // lid is the location id
 	 	$DBRESULT =& $pearDB->query("SELECT hostgroup_hg_id as id,host_name as name,host_id as hostid ".
 				     "FROM hostgroup_relation ".
 				     "JOIN host ".
@@ -86,12 +86,12 @@ For information : justin@ensgrp.com or www.ensgrp.com
         	$i = 0;
             $host_name = $new_map_location['name'];
 			$host_id = $new_map_location['hostid'];
-            $location_id = $new_map_location['id'];
+            $location_id = $new_map_location['id'];*/
 				
 			/*
 			 * lookup host status
 			 */
-			$state = ServiceStatusPerHost($host_name);		
+			/*$state = ServiceStatusPerHost($host_name);		
 			
 			if ($state == "UP") {
 				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)."><img src=\"modules/gmap/img/green-dot.png\"></a>";
@@ -111,7 +111,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 			}	
 		}
 		return $host_status;
-	}
+	}*/
 	
 	function getHostState($host_name, $pearDBndo, $ndo_prefix) {
 		$rq1 = 	" SELECT DISTINCT no.name1, nhs.current_state," .
@@ -156,7 +156,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 								"WHERE locations.hg_id = hostgroup.hg_id ".
 								"ORDER BY name ASC");
 	if (PEAR::isError($DBRESULT)) {
-        print "DB Error : ".$DBRESULT->getDebugInfo()."<br>";
+        print "DB Error : ".$DBRESULT->getDebugInfo()."<br/>";
 	}
     while ($marker =& $DBRESULT->fetchRow()) {
 		$popupString = "";
@@ -172,35 +172,46 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		$newnode->setAttribute("location_status", $hostState[$information["current_state"]]);
 		if ($information["icon_image"] != "") {
 			$information["icon_image"] = "./img/media/".$information["icon_image"];
-			$popupString .= "<img src='".$information["icon_image"]."' width='25px' heigth='25px'><br><br>";
+			$popupString .= "<img src='".$information["icon_image"]."' width='25px' heigth='25px'><br/><br/>";
 		} else {
 			$information["icon_image"] = "./img/icones/16x16/server_network.gif";
-			$popupString .= "<img src='".$information["icon_image"]."' width='20px' heigth='20px'><br><br>";
+			$popupString .= "<img src='".$information["icon_image"]."' width='20px' heigth='20px'><br/><br/>";
 		}
 		$newnode->setAttribute("icon", $information["icon_image"]);
-		$popupString .= "<b>"._("Host name:")."</b>"." ".$marker['name']."<br>";
-		$popupString .= "<b>"._("Host address:")."</b>"." ".$information['address']."<br>";	
+		$popupString .= "<b>"._("Host name :")."</b>"." ".$marker['name']."<br/>";
+		$popupString .= "<b>"._("Host address :")."</b>"." ".$information['address']."<br/>";	
 		
 		if ($hostState[$information["current_state"]] == "DOWN") {
-			$popupString .= "<b>"._("Status:")."</b> <font color='red'>"." ".$hostState[$information["current_state"]]."</font><br>";
+			$popupString .= "<b>"._("Status :")."<font color='red'>"." ".$hostState[$information["current_state"]]."</font></b><br/>";
 		} else if ($hostState[$information["current_state"]] == "UP") {
-			$popupString .= "<b>"._("Status:")."</b> <font color='green'>"." ".$hostState[$information["current_state"]]."</font><br>";
+			$popupString .= "<b>"._("Status :")."<font color='green'>"." ".$hostState[$information["current_state"]]."</font></b><br/>";
 		} else if ($hostState[$information["current_state"]] == "UNREACHABLE") {
-			$popupString .= "<b>"._("Status:")."</b> <font color='orange'>"." ".$hostState[$information["current_state"]]."</font><br>";
+			$popupString .= "<b>"._("Status :")."<font color='orange'>"." ".$hostState[$information["current_state"]]."</font></b><br/>";
 		}
 				
 		if ($information["current_state"]) {
-			$popupString .= "<b>"._("Acknownledge:")."</b>"." ".($information["problem_has_been_acknowledged"] > 0 ? _("Yes") : _("No"))."<br>";
+			$popupString .= "<b>"._("Acknownledge :")."</b>"." ".($information["problem_has_been_acknowledged"] > 0 ? _("Yes") : _("No"))."<br/>";
 		}
-		$popupString .= "<b>"._("Last check:")."</b>"." ".$information["last_check2"]."<br>";
+		$popupString .= "<b>"._("Last check :")."</b>"." ".$information["last_check2"]."<br/><br/>";
 		
 		foreach ($stateService as $state => $nb) {
-			$popupString .= "<b>"._("Services ").$serviceState[$state].":"."</b>"." ".$nb."<br>";
+			if ($serviceState[$state] == "OK") {
+				$popupString .= "<b>"._("Services ")."<font color='green'>".$serviceState[$state]."</font> :"."</b>"." ".$nb."<br/>";
+			}
+			else if ($serviceState[$state] == "WARNING") {
+				$popupString .= "<b>"._("Services ")."<font color='orange'>".$serviceState[$state]."</font> :"."</b>"." ".$nb."<br/>";
+			}
+			else if ($serviceState[$state] == "CRITICAL") {
+				$popupString .= "<b>"._("Services ")."<font color='red'>".$serviceState[$state]."</font> :"."</b>"." ".$nb."<br/>";
+			}
+			else if ($serviceState[$state] == "UNKNOWN") {
+				$popupString .= "<b>"._("Services ")."<font color='grey'>".$serviceState[$state]."</font> :"."</b>"." ".$nb."<br/>";
+			}
 		}
 		
-		$popupString .= "<br/><b>"._("Location:")."</b>"." ".$marker['addr']."<br>";		
+		$popupString .= "<br/><b>"._("Location :")."</b>"." ".$marker['addr']."<br/>";		
 		
-		$popupString .= "<br><br><center><a href='?p=20201&o=svc&search=".$marker['name']."&search_host=1&search_service=0'>"._("Show Services Details")."</a></center>";
+		$popupString .= "<br/><br/><center><a href='?p=20201&o=svc&search=".$marker['name']."&search_host=1&search_service=0'>"._("Show Services Details")."</a></center>";
 		$newnode2 = $node->appendChild($dom->createTextNode($popupString));
 		
 	}
