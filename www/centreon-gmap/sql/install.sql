@@ -34,6 +34,6 @@ INSERT INTO `topology` (`topology_id`, `topology_name`, `topology_icone`, `topol
 INSERT INTO `topology` (`topology_id`, `topology_name`, `topology_icone`, `topology_parent`, `topology_page`, `topology_order`, `topology_group`, `topology_url`, `topology_url_opt`, `topology_popup`, `topology_modules`, `topology_show`, `topology_style_class`, `topology_style_id`, `topology_OnClick`) VALUES ('', 'Host Group Config', NULL, 245, 24503, 102, 1, './modules/centreon-gmap/gmap_config_hostGroup.php', NULL, '0', '1', '1', NULL, NULL, NULL);
 
 
-INSERT INTO `topology` (`topology_id`, `topology_name`, `topology_icone`, `topology_parent`, `topology_page`, `topology_order`, `topology_group`, `topology_url`, `topology_url_opt`, `topology_popup`, `topology_modules`, `topology_show`, `topology_style_class`, `topology_style_id`, `topology_OnClick`) VALUES ('', 'Gmap Options', './modules/gmap/img/ico_google.jpg', 50101, 5010190, 130, 1, './modules/centreon-gmap/gmap_Opt.php', '&o=w', '0', '0', '1', NULL, NULL, NULL);
+INSERT INTO `topology` (`topology_id`, `topology_name`, `topology_icone`, `topology_parent`, `topology_page`, `topology_order`, `topology_group`, `topology_url`, `topology_url_opt`, `topology_popup`, `topology_modules`, `topology_show`, `topology_style_class`, `topology_style_id`, `topology_OnClick`) VALUES ('', 'Gmap Options', './modules/gmap/img/ico_google.jpg', 50101, 5010191, 130, 1, './modules/centreon-gmap/gmap_Opt.php', '&o=w', '0', '0', '1', NULL, NULL, NULL);
 
 
