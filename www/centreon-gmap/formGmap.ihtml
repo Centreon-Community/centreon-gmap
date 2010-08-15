@@ -15,8 +15,8 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
     function createMap() {
     	var optionsMap = {
 {/literal}
-			zoom: 5,
-			center: new google.maps.LatLng(46.15, 1.45),
+			zoom: {$gmap_zoom},
+			center: new google.maps.LatLng({$gmap_lat}, {$gmap_long}),
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 {literal}
 		}
@@ -24,11 +24,20 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
         
         marker = new google.maps.Marker({
 {/literal}
-   			position: new google.maps.LatLng(46.15, 1.45),
+   			position: new google.maps.LatLng({$gmap_lat}, {$gmap_long}),
    			map: map,
    			draggable: true
 {literal}
    		});
+   		
+   		google.maps.event.addListener(marker, 'drag', function() {
+    		document.getElementById("lat").value = marker.getPosition().lat();
+    		document.getElementById("long").value = marker.getPosition().lng();
+  		});
+  		
+  		google.maps.event.addListener(map, 'zoom_changed', function() {
+    		document.getElementById("zoom").value = map.getZoom();
+  		});
 
     }
     
@@ -65,7 +74,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 		<tr class="list_two">
 			<td class="FormRowField">{$form.zoomLevel.label}</td>
 			<td class="FormRowValue">{$form.zoomLevel.html}</td>
-		</tr>		
+		</tr>	
 	</table>
 	
 	<div id="validForm">

@@ -31,38 +31,46 @@ For information : justin@ensgrp.com or www.ensgrp.com
 
 	$sopt = readConfigOptions($pearDB,$oreon);
 
-	$attrsText2		= array("size"=>"20");
 	$attrsText3		= array("size"=>"10");
-	$zoomLevel		= array('0' => '0', 
-							'1' => '1',
-							'2' => '2',
-							'3' => '3',
-							'4' => '4',
-							'5' => '5',
-							'6' => '6',
-							'7' => '7',
-							'8' => '8',
-							'9' => '9',
-							'10' => '10',
-							'11' => '11',
-							'12' => '12',
-							'13' => '13',
-							'14' => '14',
-							'15' => '15',
-							'16' => '16',
-							'17' => '17',
-							'18' => '18',
-							'19' => '19');
+	$attrsTextLong		= array("size"=>"10",
+								'id="long"');
+	$attrsTextLat		= array("size"=>"10",
+								'id="lat"');
+	#$zoomLevel		= array('0' => '0', 
+	#						'1' => '1',
+	#						'2' => '2',
+	#						'3' => '3',
+	#						'4' => '4',
+	#						'5' => '5',
+	#						'6' => '6',
+	#						'7' => '7',
+	#						'8' => '8',
+	#						'9' => '9',
+	#						'10' => '10',
+	#						'11' => '11',
+	#						'12' => '12',
+	#						'13' => '13',
+	#						'14' => '14',
+	#						'15' => '15',
+	#						'16' => '16',
+	#						'17' => '17',
+	#						'18' => '18',
+	#						'19' => '19',
+	#						'id="zoom"');
+	
+	$attrsZoom		= array("size"=>"10",
+							'id="zoom"');
 	#
 	## Form begin
 	#
 	$form = new HTML_QuickForm('Form', 'post', "?p=".$p);
 	$form->addElement('header', 'title', _("Gmap Module Options"));
 	$form->addElement('header', 'gmap_header', _("Gmap Module Options"));
-	$form->addElement('text', 'lat', _("Latitude"), $attrsText3 );
-	$form->addElement('text', 'long', _("Longitude"), $attrsText3 );
+	$form->addElement('text', 'lat', _("Latitude"), $attrsTextLat );
+	$form->addElement('text', 'long', _("Longitude"), $attrsTextLong );
 	$form->addElement('text', 'height', _("Map Height"), $attrsText3 );
-	$form->addElement('select', 'zoomLevel', _("Zoom Level"), $zoomLevel);
+	#$form->addElement('select', 'zoomLevel', _("Zoom Level"), $zoomLevel);
+	$form->addElement('text', 'zoomLevel', _("Zoom Level"), $attrsZoom);
 	
 	$form->addElement('hidden', 'id');
 	$redirect =& $form->addElement('hidden', 'o');
@@ -119,6 +127,9 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	$tpl->assign('form', $renderer->toArray());
 	$tpl->assign('o', $o);
 	$tpl->assign('valid', $valid);
+	$tpl->assign("gmap_lat", $sopt['lat']);
+    $tpl->assign("gmap_long", $sopt['long']);
+    $tpl->assign("gmap_zoom", $sopt['zoomLevel']);
 	$tpl->display("formGmap.ihtml");
 
 ?>
