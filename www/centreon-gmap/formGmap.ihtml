@@ -36,9 +36,11 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
   		});
   		
   		google.maps.event.addListener(map, 'zoom_changed', function() {
-    		document.getElementById("zoom").value = map.getZoom();
+    		document.getElementById("zoomLevel").value = map.getZoom();
   		});
-
+{/literal}
+  		document.getElementById("text_opt").innerHTML = "{$text_opt}";
+{literal}
     }
     
     google.maps.event.addDomListener(window, 'load', createMap);
@@ -46,6 +48,12 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
     //]]>
 {/literal}
 </script>
+
+<div id="text_opt">
+	ICI METTRE DU TEXTE EXPLIQUANT LE FONCTIONNEMENT DE LA PAGE D'OPTION
+	<br/>
+	<br/>
+</div>
 
 <div id="map" style="width:700px; height:350px"></div><br/>
 
