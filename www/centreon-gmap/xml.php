@@ -67,6 +67,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 
       
 	function CreateHosts($lid,$pearDB) { // lid is the location id
+		//global $location_status;
 	 	$DBRESULT =& $pearDB->query("SELECT hostgroup_hg_id as id,host_name as name,host_id as hostid ".
 				     "FROM hostgroup_relation ".
 				     "JOIN host ".
@@ -78,7 +79,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
         
         $host_status = "";
 		$n = 0;
-		$location_status = "UP";
+		//$location_status = "UP";
 
         while ($new_map_location =& $DBRESULT->fetchRow()) {		
         	$i = 0;
@@ -92,17 +93,18 @@ For information : justin@ensgrp.com or www.ensgrp.com
 			$state = ServiceStatusPerHost($host_name);		
 			//echo $state[0];
 			if ($state[0] == '0') {
-				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)."><img src=\"modules/centreon-gmap/img/green-dot.png\"></a>";
-				$location_status = "UP";
+				//$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)."><img src=\"modules/centreon-gmap/img/green-dot.png\"></a>";
+				//$location_status = "UP";
 			} else if($state[0] == "1") {
 				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)."><img src=\"modules/centreon-gmap/img/yellow-dot.png\"></a>";
-				$location_status = "WARN";
+				//$location_status = "WARN";
 			} else {
 				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)." ><img src=\"modules/centreon-gmap/img/red-dot.png\"></a>";
-				$location_status = "DOWN";
+				//$location_status = "DOWN";
+			 $n++;
+
 			}
 			
-			$n++;
 			if($n > 11) {
 				$host_status = $host_status."<BR>";
 				$n = 0;
@@ -165,8 +167,8 @@ For information : justin@ensgrp.com or www.ensgrp.com
         $newnode->setAttribute("name",$marker['name']);
 		$newnode->setAttribute("lat", $marker['lat']);
 		$newnode->setAttribute("lng", $marker['lng']);
-		
-		$newnode->setAttribute("location_status", $hostState[$information["current_state"]]);
+		$newnode->setAttribute("location_status", "DOWN");
+		//$newnode->setAttribute("location_status", $hostState[$information["current_state"]]);
 		if ($information["icon_image"] != "") {
 			$information["icon_image"] = "./img/media/".$information["icon_image"];
 			$popupString .= "<img src='".$information["icon_image"]."' width='25px' heigth='25px'><br/><br/>";
@@ -180,6 +182,8 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		
 		$popupString .= "<b>"._("Host Group :")."</b>"." ".$marker['name']."<br/>";
                 $popupString .= $host_status;
+		 //$newnode->setAttribute("location_status", "DOWN");
+
                 }
 		else {
 		$popupString .= "<b>"._("Host name :")."</b>"." ".$marker['name']."<br/>";
@@ -215,41 +219,21 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		
 		$popupString .= "<br/><b>"._("Location :")."</b>"." ".$marker['addr']."<br/>";		
 		$popupString .= "<br/><br/><center><a href='?p=20201&o=svc&hostsearch=".$marker['name']."'>"._("Show Services Details")."</a></center>";
-
+		
 		$newnode2 = $node->appendChild($dom->createTextNode($popupString));
-	}
-	$DBRESULT->free();
-
-
-		if ($marker['hg_id'] != '0') {
-			$host_status = CreateHosts($marker['hg_id'],$pearDB);
-	
-		} else { 
-			
-			//$state = ServiceStatusPerHost($marker['name']);
-
-			if ($information["current_state"] == "UP") {
-				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)."><img src=\"modules/centreon-gmap/img/green-dot.png\"></a>";
-				$location_status = "UP";
-			} else if ($information["current_state"] == "WARN") {
-				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)."><img src=\"modules/centreon-gmap/img/yellow-dot.png\"></a>";
-				$location_status = "UNREACHABLE";	
-			} else {
-				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)." ><img src=\"modules/centreon-gmap/img/red-dot.png\"></a>";
-				$location_status = "DOWN";
-			}
-		}
-
 		$location_critical = strpos($host_status,"red-dot");
 		$location_warn = strpos($host_status,"yellow-dot");
-		if ($location_critical === TRUE) {
-			$newnode->setAttribute("location_status", "DOWN");
-		} else if($location_warn === TRUE) {
-			$newnode->setAttribute("location_status", "UNREACHABLE");
-		} else {
-			$newnode->setAttribute("location_status", "UP");
-		}
-		
+                if ($location_critical == true) {
+                       $newnode->setAttribute("location_status", "DOWN");
+                } else if($location_warn == true) {
+                        $newnode->setAttribute("location_status", "UNREACHABLE");
+                } else {
+                        $newnode->setAttribute("location_status", "UP");
+                }
+
+
+	}
+	$DBRESULT->free();
 
 
 	header("Content-type: text/xml");
