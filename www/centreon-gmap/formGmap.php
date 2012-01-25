@@ -34,7 +34,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 
 	$attrsTextHeight	= array("size"=>"10");
 	$attrsTextLong		= array("size"=>"10",
-								"id"=>"long",
+								"id"=>"lng",
 								"readonly"=>"readonly");
 	$attrsTextLat		= array("size"=>"10",
 								"id"=>"lat",
@@ -52,7 +52,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	$form->addElement('header', 'title', _("Gmap Module Options"));
 	$form->addElement('header', 'gmap_header', _("Gmap Module Options"));
 	$form->addElement('text', 'lat', _("Latitude"), $attrsTextLat);
-	$form->addElement('text', 'long', _("Longitude"), $attrsTextLong);
+	$form->addElement('text', 'lng', _("Longitude"), $attrsTextLong);
 	$form->addElement('text', 'height', _("Map Height"), $attrsTextHeight);
 	$form->addElement('text', 'zoomLevel', _("Zoom Level"), $attrsZoom);
 	$form->addElement('hidden', 'id');
@@ -100,11 +100,11 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	$tpl->assign('o', $o);
 	$tpl->assign('valid', $valid);
 	$tpl->assign("gmap_lat", $sopt['lat']);
-    $tpl->assign("gmap_long", $sopt['long']);
+    $tpl->assign("gmap_lng", $sopt['lng']);
     $tpl->assign("gmap_zoom", $sopt['zoomLevel']);
     $tpl->assign("text_opt", _("To center the map on a point, take the marker and move it wherever you want on the map.<br/>"
     						."You can also select the + and - to set zoom level.<br/>"
-    						."It is impossible to edit by hand the longitude, latitude and zoom values. Only the map height is editable by hand.<br/><br/>"));
+    						."It is impossible to edit by hand the lngitude, latitude and zoom values. Only the map height is editable by hand.<br/><br/>"));
 	$tpl->display("formGmap.ihtml");
 
 ?>

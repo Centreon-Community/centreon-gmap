@@ -16,7 +16,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
     	var optionsMap = {
 {/literal}
 			zoom: {$gmap_zoom},
-			center: new google.maps.LatLng({$gmap_lat}, {$gmap_long}),
+			center: new google.maps.LatLng({$gmap_lat}, {$gmap_lng}),
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 {literal}
 		}
@@ -24,7 +24,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
         
         marker = new google.maps.Marker({
 {/literal}
-   			position: new google.maps.LatLng({$gmap_lat}, {$gmap_long}),
+   			position: new google.maps.LatLng({$gmap_lat}, {$gmap_lng}),
    			map: map,
    			draggable: true
 {literal}
@@ -32,7 +32,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
    		
    		google.maps.event.addListener(marker, 'drag', function() {
     		document.getElementById("lat").value = marker.getPosition().lat();
-    		document.getElementById("long").value = marker.getPosition().lng();
+    		document.getElementById("lng").value = marker.getPosition().lng();
   		});
   		
   		google.maps.event.addListener(map, 'zoom_changed', function() {
@@ -72,8 +72,8 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 			<td class="FormRowValue">{$form.lat.html}</td>
 		</tr>
 		<tr class="list_two">
-			<td class="FormRowField">{$form.long.label}</td>
-			<td class="FormRowValue">{$form.long.html}</td>
+			<td class="FormRowField">{$form.lng.label}</td>
+			<td class="FormRowValue">{$form.lng.html}</td>
 		</tr>	
 		<tr class="list_one">
 			<td class="FormRowField">{$form.height.label}</td>
