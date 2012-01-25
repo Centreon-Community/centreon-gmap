@@ -25,7 +25,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 		b.innerHTML = "<input type=text name=address_new" + i + " size=70 value=>";
 		c.innerHTML = "<img id=arrow_new" + i + " onclick=showAddress('new" + i + "') src=./img/icones/16x16/arrow_right_blue.gif>";
 		d.innerHTML = "<input type=text name=lat_new" + i + " size=15 value=>";
-		e.innerHTML = "<input type=text name=long_new" + i + " size=15 value=>";
+		e.innerHTML = "<input type=text name=lng_new" + i + " size=15 value=>";
 		f.innerHTML = "<img onclick=ajaxFunction('new" + i + "','new') src=./img/icones/16x16/data_into.gif>";
 		g.innerHTML = "<img id=new" + i + "  style=display:none; src=./img/icones/16x16/spinner_blue.gif alt=Updating>";
 		i++;
@@ -45,7 +45,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 		var ajaxRequest;
         var host_address = "address_" + lid;
         var host_lat = "lat_" + lid;
-        var host_long = "long_" + lid;
+        var host_lng = "lng_" + lid;
 		var host_tr = "tr_" + lid;
 		var update_id = "update_" + lid;
  		var hg_id = "host_group_list_" + lid;
@@ -79,21 +79,21 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 		}
 	
 		var lat = document.demo[host_lat].value;
-		var long = document.demo[host_long].value;
+		var lng = document.demo[host_lng].value;
 		var address = document.demo[host_address].value;
 		var hg_id = document.demo[hg_id].value;
 		if (action == "update") {
-			var queryString = "&l_id=" + lid +"&lat=" + lat + "&long=" + long + "&address=" + address + "&hg_id=" + hg_id + "&action=update";
+			var queryString = "&l_id=" + lid +"&lat=" + lat + "&lng=" + lng + "&address=" + address + "&hg_id=" + hg_id + "&action=update";
 		}
 		if (action == "new") {
-	        var queryString = "&l_id=" + lid +"&lat=" + lat + "&long=" + long + "&address=" + address + "&hg_id=" + hg_id + "&action=new";
+	        var queryString = "&l_id=" + lid +"&lat=" + lat + "&lng=" + lng + "&address=" + address + "&hg_id=" + hg_id + "&action=new";
 	    }
 		if (action == "delete") {
-	        var queryString = "&l_id=" + lid +"&lat=" + lat + "&long=" + long + "&address=" + address + "&hg_id=" + hg_id + "&action=delete";
+	        var queryString = "&l_id=" + lid +"&lat=" + lat + "&lng=" + lng + "&address=" + address + "&hg_id=" + hg_id + "&action=delete";
 	    }
 
 
-		ajaxRequest.open("GET", "main.php?p=24503" + queryString, true);
+		ajaxRequest.open("GET", "main.php?p=702" + queryString, true);
 		ajaxRequest.send(null); 
 	}
 
@@ -103,7 +103,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
     	var optionsMap = {
 {/literal}
 			zoom: {$gmap_zoom},
-			center: new google.maps.LatLng({$gmap_lat}, {$gmap_long}),
+			center: new google.maps.LatLng({$gmap_lat}, {$gmap_lng}),
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 {literal}
 		}
@@ -112,12 +112,12 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
         geocoder = new google.maps.Geocoder();
     }
 	
-    // Function to get the latitude and longitude of the address
+    // Function to get the latitude and lngitude of the address
     function showAddress(host) {
     
 	    var host_address = "address_" + host;
 		var host_lat = "lat_" + host;
-		var host_long = "long_" + host;
+		var host_lng = "lng_" + host;
     
     	var searchAddress = document.demo[host_address].value;
     
@@ -126,7 +126,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
     		if (status == google.maps.GeocoderStatus.OK) {
 					
 				var latitude = results[0].geometry.location.lat();
-				var longitude = results[0].geometry.location.lng();
+				var lngitude = results[0].geometry.location.lng();
 		        map.setCenter(results[0].geometry.location);
 		        var marker = new google.maps.Marker({
 		            map: map, 
@@ -134,7 +134,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 		        });
 		        		        
 		        document.demo[host_lat].value = latitude;
-				document.demo[host_long].value = longitude;
+				document.demo[host_lng].value = lngitude;
 				
 				google.maps.event.addListener(marker, 'click', function() {
       				infoWindow.setContent(searchAddress);
@@ -168,7 +168,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 				<td class="ListColHeaderLeft" width=20%>{$host}</td>
 				<td class="ListColHeaderLeft" width=50% colspan=2>{$address}</td>
 				<td class="ListColHeaderCenter" width=15%>{$latitude}</td>
-				<td class="ListColHeaderCenter" width=15%>{$longitude}</td>
+				<td class="ListColHeaderCenter" width=15%>{$lngitude}</td>
 				<td class="ListColHeaderCenter" width=15%>{$actions}</td>
 			</tr>
 
@@ -179,7 +179,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
                 item2 = hg_id (hostgroup id)
                 item3 = address
                 item4 = lat   (lattitude)
-                item5 = long  (longitude)
+                item5 = lng  (lngitude)
             *}
 
 			{foreach key=hname item=item from=$h_names}
@@ -194,7 +194,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 					<td><input type="text" name="address_{$item[0]}" size="70" value="{$item[3]}"></td> 
 					<td><img id="arrow_{$hname}" onclick="showAddress('{$item[0]}')" src=./img/icones/16x16/arrow_right_blue.gif></td>
 					<td><input type="text" name="lat_{$item[0]}" size="15" value="{$item[4]}"></td>
-					<td><input type="text" name="long_{$item[0]}" size="15" value="{$item[5]}"></td>
+					<td><input type="text" name="lng_{$item[0]}" size="15" value="{$item[5]}"></td>
 					<td><img  onclick="ajaxFunction('{$item[0]}','update')" src=./img/icones/16x16/data_into.gif></td>
 					<td><img  onclick="ajaxFunction('{$item[0]}','delete')" src=./img/icones/16x16/delete2.gif></td>
 					<td><img id="{$item[0]}" style="display:none;" src="./img/icones/16x16/spinner_blue.gif" alt="Updating"></td>

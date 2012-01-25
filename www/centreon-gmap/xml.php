@@ -149,8 +149,8 @@ For information : justin@ensgrp.com or www.ensgrp.com
 								"UNION ".
 								"SELECT hostgroup.hg_name as name, ".
 								"locations.lat as lat, ".
-								"locations.lng as lng, ".
 								"locations.address as addr, ".
+								"locations.lng as lng, ".
 								"locations.h_id as hid, ".
 								"locations.hg_id AS hg_id ".
 								"FROM locations,hostgroup ".
