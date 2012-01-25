@@ -93,7 +93,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 	    }
 
 
-		ajaxRequest.open("GET", "main.php?p=702" + queryString, true);
+		ajaxRequest.open("GET", "main.php?p=703" + queryString, true);
 		ajaxRequest.send(null); 
 	}
 
