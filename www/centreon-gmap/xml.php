@@ -69,7 +69,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	}
 
       
-/*	function CreateHosts($lid,$pearDB) { // lid is the location id
+	function CreateHosts($lid,$pearDB) { // lid is the location id
 	 	$DBRESULT =& $pearDB->query("SELECT hostgroup_hg_id as id,host_name as name,host_id as hostid ".
 				     "FROM hostgroup_relation ".
 				     "JOIN host ".
@@ -87,12 +87,12 @@ For information : justin@ensgrp.com or www.ensgrp.com
         	$i = 0;
             $host_name = $new_map_location['name'];
 			$host_id = $new_map_location['hostid'];
-            $location_id = $new_map_location['id'];*/
+            $location_id = $new_map_location['id'];
 				
 			/*
 			 * lookup host status
 			 */
-			/*$state = ServiceStatusPerHost($host_name);		
+			$state = ServiceStatusPerHost($host_name);		
 			
 			if ($state == "UP") {
 				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)."><img src=\"modules/gmap/img/green-dot.png\"></a>";
@@ -112,7 +112,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 			}	
 		}
 		return $host_status;
-	}*/
+	}
 	
 	function getHostState($host_name, $pearDBndo, $ndo_prefix) {
 		$rq1 = 	" SELECT DISTINCT no.name1, nhs.current_state," .
@@ -218,7 +218,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	}
 	$DBRESULT->free();
 
-/*
+
 		if ($marker['hg_id'] != '0') {
 			$host_status = CreateHosts($marker['hg_id'],$pearDB);
 		} else { 
@@ -247,7 +247,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		} else {
 			$newnode->setAttribute("location_status", "UP");
 		}
-		*/
+		
 
 
 	header("Content-type: text/xml");
