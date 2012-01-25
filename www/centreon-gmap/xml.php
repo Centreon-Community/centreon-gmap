@@ -250,7 +250,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		*/
 
 
-//	header("Content-type: text/xml");
+	header("Content-type: text/xml");
 	
     echo $dom->saveXML();
 

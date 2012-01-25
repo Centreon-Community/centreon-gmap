@@ -42,7 +42,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	$tpl = new Smarty();
 	$tpl = initSmartyTpl($path, $tpl);
     $tpl->assign("gmap_lat", $mod_gmap_options['lat']);
-    $tpl->assign("gmap_long", $mod_gmap_options['long']);
+    $tpl->assign("gmap_lng", $mod_gmap_options['lng']);
     $tpl->assign("gmap_height", $mod_gmap_options['height']);
     $tpl->assign("gmap_zoom", $mod_gmap_options['zoomLevel']);
 	$tpl->display("gmap.ihtml");

@@ -34,8 +34,8 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		$rq = "UPDATE `mod_gmap_options` SET ";
 		$rq .= "`lat` = ";
 		isset($ret["lat"]) && $ret["lat"] != NULL ? $rq .= "'".htmlentities($ret["lat"], ENT_QUOTES)."', ": $rq .= "NULL, ";
-		$rq .= "`long` = ";
-		isset($ret["long"]) && $ret["long"] != NULL ? $rq .= "'".htmlentities($ret["long"], ENT_QUOTES)."', ": $rq .= "NULL, ";
+		$rq .= "`lng` = ";
+		isset($ret["lng"]) && $ret["lng"] != NULL ? $rq .= "'".htmlentities($ret["lng"], ENT_QUOTES)."', ": $rq .= "NULL, ";
 		$rq .= "`height` = ";
 		isset($ret["height"]) && $ret["height"] != NULL ? $rq .= "'".htmlentities($ret["height"], ENT_QUOTES)."', ": $rq .= "NULL, ";
 		$rq .= "`zoomLevel` = ";
@@ -74,7 +74,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 			$smarty_host[$host_name][] = $locations['hg_id'];
 			$smarty_host[$host_name][] = $locations['address'];
 			$smarty_host[$host_name][] = $locations['lat'];
-			$smarty_host[$host_name][] = $locations['long'];
+			$smarty_host[$host_name][] = $locations['lng'];
 			
 	    }
         $DBRESULT->free();

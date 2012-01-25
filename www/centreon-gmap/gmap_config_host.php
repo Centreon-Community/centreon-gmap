@@ -12,13 +12,6 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	if (!isset($oreon))
 		exit();
 
-	## Pear library
-	require_once "HTML/QuickForm.php";
-	require_once 'HTML/QuickForm/advmultiselect.php';
-	require_once 'HTML/QuickForm/Renderer/ArraySmarty.php';
-
-	$form = new HTML_QuickForm();
-
 	## Path to the configuration dir
 	global $path;
 	$path = "./modules/centreon-gmap/";
@@ -32,14 +25,14 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		$l_id = $_GET['l_id'];
 		$hg_id = $_GET['hg_id'];
 		$lat = $_GET['lat'];
-		$long = $_GET['long'];
+		$lng = $_GET['lng'];
 		$address = $_GET['address'];
 		$action = $_GET['action'];	
         
         if ($action == "new") {
-			$DBRESULT =& $pearDB->query("INSERT into`locations` SET `h_id`='$hg_id',`lat`='$lat',`long`='$long',`address`='$address'");
+			$DBRESULT =& $pearDB->query("INSERT into`locations` SET `h_id`='$hg_id',`lat`='$lat',`lng`='$lng',`address`='$address'");
 		} else if ($action == "update") {
-			$DBRESULT =& $pearDB->query("UPDATE `locations` SET `h_id`='$hg_id',`lat`='$lat',`long`='$long',`address`='$address' WHERE l_id='$l_id' LIMIT 1");
+			$DBRESULT =& $pearDB->query("UPDATE `locations` SET `h_id`='$hg_id',`lat`='$lat',`lng`='$lng',`address`='$address' WHERE l_id='$l_id' LIMIT 1");
 		} else if ($action == "delete") {
                 $DBRESULT =& $pearDB->query("DELETE from `locations` WHERE l_id='$l_id' LIMIT 1");
         }
@@ -63,7 +56,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	$tpl->assign("host_list", $smarty_host_list);
 	$tpl->assign("hostgroup_list", $smarty_hostgroup_list);
 	$tpl->assign("gmap_lat", $mod_gmap_options['lat']);
-    $tpl->assign("gmap_long", $mod_gmap_options['long']);
+    $tpl->assign("gmap_lng", $mod_gmap_options['lng']);
     $tpl->assign("gmap_height", $mod_gmap_options['height']);
     $tpl->assign("gmap_zoom", $mod_gmap_options['zoomLevel']);
         
@@ -73,7 +66,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
     $tpl->assign("host", _("Hosts"));
     $tpl->assign("address", _("Address, postal code, city, country"));
     $tpl->assign("latitude", _("Latitude"));
-    $tpl->assign("longitude", _("Longitude"));
+    $tpl->assign("lngitude", _("Longitude"));
     $tpl->assign("actions", _("Actions"));
     $tpl->assign("addLocation", _("Add a location for a host"));
     $tpl->assign("messageAlert", _("Geocode was not successful for the following reason : "));

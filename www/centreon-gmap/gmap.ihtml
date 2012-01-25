@@ -39,7 +39,7 @@ To view Google Maps, enable JavaScript by changing your browser options, and the
 		var optionsMap = {
 {/literal}
 			zoom: {$gmap_zoom},
-			center: new google.maps.LatLng({$gmap_lat}, {$gmap_long}),
+			center: new google.maps.LatLng({$gmap_lat}, {$gmap_lng}),
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 {literal}
 		};
