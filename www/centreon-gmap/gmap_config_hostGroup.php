@@ -30,7 +30,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	## define globals
 	global $pearDB;
 	global $oreon;
-
+	
 	## legacy update host	
 	if(isset($_GET['l_id'])) {
 		$l_id = $_GET['l_id'];
@@ -66,7 +66,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	$tpl->assign("hostgroup_list", $smarty_hostgroup_list);
 	$tpl->assign("gmap_zoom", $mod_gmap_options['zoomLevel']);
 	$tpl->assign("gmap_lat", $mod_gmap_options['lat']);
-    $tpl->assign("gmap_long", $mod_gmap_options['long']);
+    	$tpl->assign("gmap_long", $mod_gmap_options['long']);
     
     /*
      * translations

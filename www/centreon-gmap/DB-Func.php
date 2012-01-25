@@ -95,9 +95,10 @@ For information : justin@ensgrp.com or www.ensgrp.com
         if (PEAR::isError($DBRESULT)) {
                 print "DB Error : ".$DBRESULT->getDebugInfo()."<br>";
         }
-	    while ($hostgroup =& $DBRESULT->fetchInto()) {
-        	$smarty_hostgroup_list[$hostgroup['hg_id']] = $hostgroup['hg_name'];
-        }
+	 while($DBRESULT->fetchInto($hostgroup)) {
+                        $smarty_hostgroup_list[$hostgroup['hg_id']] = $hostgroup['hg_name'];
+
+                }
         $DBRESULT->free();
 	}
         

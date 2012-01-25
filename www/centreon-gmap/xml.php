@@ -9,7 +9,7 @@ Designed for: Centreon v2
 For information : justin@ensgrp.com or www.ensgrp.com
 **************************************************/
 	
-	ini_set("display_errors", "On");
+	ini_set("display_errors", "Off");
 	
 	include_once "/etc/centreon/centreon.conf.php";
 	include_once $centreon_path . "www/class/other.class.php";
@@ -22,10 +22,11 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	include_once $centreon_path . "www/include/common/common-Func.php";
 	
 	session_start();
-	$oreon = $_SESSION['oreon'];
+	//$oreon = $_SESSION['oreon'];
 	
-	$centreonlang = new CentreonLang($centreon_path, $oreon);
-	$centreonlang->bindLang();
+	//global $oreon;
+	//$centreonlang = new CentreonLang($centreon_path, $oreon);
+	//$centreonlang->bindLang();
 	
 	/*
 	 * Tab status
@@ -142,13 +143,13 @@ For information : justin@ensgrp.com or www.ensgrp.com
 	$parnode = $dom->appendChild($node);
 	
 	$DBRESULT =& $pearDB->query("SELECT DISTINCT host.host_name AS name, locations.lat AS lat, ". 
-								"locations.address AS addr, locations.long AS lng, locations.h_id AS h_id, locations.hg_id AS hg_id ".
+								"locations.address AS addr, locations.lng AS lng, locations.h_id AS h_id, locations.hg_id AS hg_id ".
 								"FROM locations, host, hostgroup ".
 								"WHERE locations.h_id = host.host_id ".
 								"UNION ".
 								"SELECT hostgroup.hg_name as name, ".
 								"locations.lat as lat, ".
-								"locations.long as lng, ".
+								"locations.lng as lng, ".
 								"locations.address as addr, ".
 								"locations.h_id as hid, ".
 								"locations.hg_id AS hg_id ".
@@ -162,7 +163,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		$popupString = "";
 		$information = getHostState($marker['name'], $pearDBndo, $ndo_prefix);
 		$stateService = ServiceStatusPerHost($marker['name']);
-		
+		print_r($stateservice);
 		$node = $dom->createElement("location");
 		$newnode = $parnode->appendChild($node);
         $newnode->setAttribute("name",$marker['name']);
@@ -211,7 +212,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		
 		$popupString .= "<br/><b>"._("Location :")."</b>"." ".$marker['addr']."<br/>";		
 		
-		$popupString .= "<br/><br/><center><a href='?p=20201&o=svc&search=".$marker['name']."&search_host=1&search_service=0'>"._("Show Services Details")."</a></center>";
+		$popupString .= "<br/><br/><center><a href='?p=20201&o=svc&hostsearch=".$marker['name']."'>"._("Show Services Details")."</a></center>";
 		$newnode2 = $node->appendChild($dom->createTextNode($popupString));
 		
 	}
@@ -249,7 +250,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		*/
 
 
-	header("Content-type: text/xml");
+//	header("Content-type: text/xml");
 	
     echo $dom->saveXML();
 
