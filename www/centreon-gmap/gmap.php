@@ -1,10 +1,10 @@
 <?php
 /**************************************************
-Centreon GMAP Module version: 1.1
+Centreon GMAP Module version: 1.2.1
 This module is licensed under the GPLv2
 http://www.gnu.org/licenses/gpl.txt
 Developped by : Justin Guagliata
-Version: 1.1
+Version: 1.2.1
 Designed for: Centreon v2
 For information : justin@ensgrp.com or www.ensgrp.com
 **************************************************/
