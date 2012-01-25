@@ -58,15 +58,12 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		if (PEAR::isError($DBRESULT_NDO)) {
 	    	print "DB Error : ".$DBRESULT_NDO->getDebugInfo()."<br/>";
 		}
-	    $state = array();
+	    //$state = array();
 	    while ($data =& $DBRESULT_NDO->fetchRow()) {
-			if (!isset($state[$data["state"]])) {
-				$state[$data["state"]] = 0;
-			}
-			$state[$data["state"]]++;
-		}
+		$state = $data['state'];	
 		return $state;
 	}
+}
 
       
 	function CreateHosts($lid,$pearDB) { // lid is the location id
@@ -93,15 +90,15 @@ For information : justin@ensgrp.com or www.ensgrp.com
 			 * lookup host status
 			 */
 			$state = ServiceStatusPerHost($host_name);		
-			
-			if ($state == "UP") {
-				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)."><img src=\"modules/gmap/img/green-dot.png\"></a>";
+			//echo $state[0];
+			if ($state[0] == '0') {
+				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)."><img src=\"modules/centreon-gmap/img/green-dot.png\"></a>";
 				$location_status = "UP";
-			} else if($state == "WARN") {
-				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)."><img src=\"modules/gmap/img/yellow-dot.png\"></a>";
+			} else if($state[0] == "1") {
+				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)."><img src=\"modules/centreon-gmap/img/yellow-dot.png\"></a>";
 				$location_status = "WARN";
 			} else {
-				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)." ><img src=\"modules/gmap/img/red-dot.png\"></a>";
+				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)." ><img src=\"modules/centreon-gmap/img/red-dot.png\"></a>";
 				$location_status = "DOWN";
 			}
 			
@@ -163,7 +160,6 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		$popupString = "";
 		$information = getHostState($marker['name'], $pearDBndo, $ndo_prefix);
 		$stateService = ServiceStatusPerHost($marker['name']);
-		print_r($stateservice);
 		$node = $dom->createElement("location");
 		$newnode = $parnode->appendChild($node);
         $newnode->setAttribute("name",$marker['name']);
@@ -179,6 +175,13 @@ For information : justin@ensgrp.com or www.ensgrp.com
 			$popupString .= "<img src='".$information["icon_image"]."' width='20px' heigth='20px'><br/><br/>";
 		}
 		$newnode->setAttribute("icon", $information["icon_image"]);
+		if ($marker['hg_id'] != NULL) {
+                        $host_status = CreateHosts($marker['hg_id'],$pearDB);
+		
+		$popupString .= "<b>"._("Host Group :")."</b>"." ".$marker['name']."<br/>";
+                $popupString .= $host_status;
+                }
+		else {
 		$popupString .= "<b>"._("Host name :")."</b>"." ".$marker['name']."<br/>";
 		$popupString .= "<b>"._("Host address :")."</b>"." ".$information['address']."<br/>";	
 		
@@ -194,7 +197,7 @@ For information : justin@ensgrp.com or www.ensgrp.com
 			$popupString .= "<b>"._("Acknownledge :")."</b>"." ".($information["problem_has_been_acknowledged"] > 0 ? _("Yes") : _("No"))."<br/>";
 		}
 		$popupString .= "<b>"._("Last check :")."</b>"." ".$information["last_check2"]."<br/><br/>";
-		
+		}
 		foreach ($stateService as $state => $nb) {
 			if ($serviceState[$state] == "OK") {
 				$popupString .= "<b>"._("Services ")."<font color='green'>".$serviceState[$state]."</font> :"."</b>"." ".$nb."<br/>";
@@ -211,29 +214,28 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		}
 		
 		$popupString .= "<br/><b>"._("Location :")."</b>"." ".$marker['addr']."<br/>";		
-		
 		$popupString .= "<br/><br/><center><a href='?p=20201&o=svc&hostsearch=".$marker['name']."'>"._("Show Services Details")."</a></center>";
+
 		$newnode2 = $node->appendChild($dom->createTextNode($popupString));
-		
 	}
 	$DBRESULT->free();
 
 
 		if ($marker['hg_id'] != '0') {
 			$host_status = CreateHosts($marker['hg_id'],$pearDB);
+	
 		} else { 
-			
 			
 			//$state = ServiceStatusPerHost($marker['name']);
 
 			if ($information["current_state"] == "UP") {
-				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)."><img src=\"modules/gmap/img/green-dot.png\"></a>";
+				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)."><img src=\"modules/centreon-gmap/img/green-dot.png\"></a>";
 				$location_status = "UP";
 			} else if ($information["current_state"] == "WARN") {
-				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)."><img src=\"modules/gmap/img/yellow-dot.png\"></a>";
+				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)."><img src=\"modules/centreon-gmap/img/yellow-dot.png\"></a>";
 				$location_status = "UNREACHABLE";	
 			} else {
-				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)." ><img src=\"modules/gmap/img/red-dot.png\"></a>";
+				$host_status = $host_status."<a href=main.php?p=201&o=hd&host_name=".urlencode($host_name)." ><img src=\"modules/centreon-gmap/img/red-dot.png\"></a>";
 				$location_status = "DOWN";
 			}
 		}
