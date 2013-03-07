@@ -54,10 +54,10 @@ For information : justin@ensgrp.com or www.ensgrp.com
 		
         $graphTs = array(NULL=>NULL);
 		if ($hostOrGroup == 'host') {
-        	$DBRESULT =& $pearDB->query("SELECT * FROM locations where hg_id IS NULL");
+        	$DBRESULT =& $pearDB->query("SELECT * FROM mod_gmap_locations where hg_id IS NULL");
 		}
 		if ($hostOrGroup == 'group') {
-        	$DBRESULT =& $pearDB->query("SELECT * FROM locations where h_id IS NULL");
+        	$DBRESULT =& $pearDB->query("SELECT * FROM mod_gmap_locations where h_id IS NULL");
         }
 
         if (PEAR::isError($DBRESULT)) {
