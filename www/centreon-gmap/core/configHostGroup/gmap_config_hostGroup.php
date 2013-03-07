@@ -58,11 +58,11 @@ if (isset($_GET['l_id'])) {
      * Actions
      */
     if ($action == "new") {
-        $DBRESULT =& $pearDB->query("INSERT into`locations` SET `hg_id`='$hg_id',`lat`='$lat',`lng`='$lng',`address`='$address'");
+        $DBRESULT =& $pearDB->query("INSERT into `mod_gmap_locations` SET `hg_id`='$hg_id',`lat`='$lat',`lng`='$lng',`address`='$address'");
     } else if ($action == "update") {
-        $DBRESULT =& $pearDB->query("UPDATE `locations` SET `hg_id`='$hg_id',`lat`='$lat',`lng`='$lng',`address`='$address' WHERE l_id='$l_id' LIMIT 1");
+        $DBRESULT =& $pearDB->query("UPDATE `mod_gmap_locations` SET `hg_id`='$hg_id',`lat`='$lat',`lng`='$lng',`address`='$address' WHERE l_id='$l_id' LIMIT 1");
     } else if ($action == "delete") {
-        $DBRESULT =& $pearDB->query("DELETE from `locations` WHERE l_id='$l_id' LIMIT 1");
+        $DBRESULT =& $pearDB->query("DELETE from `mod_gmap_locations` WHERE l_id='$l_id' LIMIT 1");
     }
     if (PEAR::isError($DBRESULT)) {
         print "DB Error : ".$DBRESULT->getDebugInfo()."<br>";

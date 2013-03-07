@@ -110,7 +110,7 @@ $parnode = $dom->appendChild($node);
 if ($admin == 1) {
     $DBRESULT = $gmapObj->_db->query("SELECT DISTINCT host.host_name AS name, host.host_alias AS alias, locations.lat AS lat, ". 
                                      "locations.address AS addr, locations.lng AS lng, locations.h_id AS h_id, locations.hg_id AS hg_id ".
-                                     "FROM locations, host, hostgroup ".
+                                     "FROM mod_gmap_locations locations, host, hostgroup ".
                                      "WHERE locations.h_id = host.host_id ".
                                      "UNION ".
                                      "SELECT hostgroup.hg_name as name, hostgroup.hg_alias AS alias, ".
@@ -119,13 +119,13 @@ if ($admin == 1) {
                                      "locations.lng as lng, ".
                                      "locations.h_id as hid, ".
                                      "locations.hg_id AS hg_id ".
-                                     "FROM locations,hostgroup ".
+                                     "FROM mod_gmap_locations locations, hostgroup ".
                                      "WHERE locations.hg_id = hostgroup.hg_id ".
                                      "ORDER BY name ASC");
 } else {
     $DBRESULT = $gmapObj->_db->query("SELECT DISTINCT host.host_name AS name, host.host_alias AS alias, locations.lat AS lat, ". 
                                      "locations.address AS addr, locations.lng AS lng, locations.h_id AS h_id, locations.hg_id AS hg_id ".
-                                     "FROM locations, host, hostgroup, centreon_storage.centreon_acl acl ".
+                                     "FROM mod_gmap_locations locations, host, hostgroup, centreon_storage.centreon_acl acl ".
                                      "WHERE locations.h_id = host.host_id AND acl.host_id = host.host_id AND acl.group_id IN ($groupList) ".
                                      "UNION ".
                                      "SELECT hostgroup.hg_name as name, hostgroup.hg_alias AS alias, ".
@@ -134,7 +134,7 @@ if ($admin == 1) {
                                      "locations.lng as lng, ".
                                      "locations.h_id as hid, ".
                                      "locations.hg_id AS hg_id ".
-                                     "FROM locations, hostgroup ".
+                                     "FROM mod_gmap_locations locations, hostgroup ".
                                      "WHERE locations.hg_id = hostgroup.hg_id AND hostgroup.hg_id IN ($hostGroupList) ".
                                      "ORDER BY name ASC");
 }
